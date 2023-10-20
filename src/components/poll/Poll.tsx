@@ -28,7 +28,7 @@ export const Poll = ({ title, options }: TPropsType) => {
                 value={option}
                 name={option.toLowerCase()}
                 checked={selectedOption === option}
-                onClick={() => handleCheckboxChange(option)}
+                onChange={() => handleCheckboxChange(option)}
               />
               <label
                 className="text-primary font-semibold text-xl"
