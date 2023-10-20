@@ -6,12 +6,10 @@ import { useState } from "react";
 
 export const Header = () => {
   return (
-    <header className="w-full h-32 py-4 px-8 flex items-center flex-col gap-4 justify-center shadow-xl rounded-xl ">
-      <div className="flex justify-between items-center w-full">
-        <h1 className="text-text font-bold text-2xl">Nayata</h1>
-        <Profile />
-      </div>
+    <header className="w-full h-24 py-4 px-10 flex items-center gap-4 justify-between shadow-xl rounded-xl ">
+      <h1 className="text-text font-bold text-2xl">Nayata</h1>
       <Tabs />
+      <Profile />
     </header>
   );
 };
@@ -28,7 +26,7 @@ export const Profile = () => {
     return (
       <div
         onClick={toggleDropdown}
-        className="py-2 px-6 bg-primary flex items-center rounded-lg gap-4 relative"
+        className="py-2 px-8 bg-primary cursor-pointer flex items-center justify-center rounded-lg gap-4 relative"
       >
         <img
           className="w-12 h-12 rounded-full"
