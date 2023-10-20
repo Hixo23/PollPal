@@ -2,14 +2,10 @@
 import { Loading } from "@/components/loading/Loading";
 import { SignIn } from "@/components/pages/signin/SignIn";
 import { Poll } from "@/components/poll/Poll";
+import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import wretch from "wretch";
-
-type TPoll = {
-  title: string;
-  options: string[];
-};
 
 export default function Home() {
   const { status } = useSession();

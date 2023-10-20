@@ -1,10 +1,11 @@
 "use client";
 
+import { TOptions } from "@/types/types";
 import { FormEvent, useState } from "react";
 
 type TPropsType = {
   title: string;
-  options: string[];
+  options: TOptions[];
 };
 
 export const Poll = ({ title, options }: TPropsType) => {
@@ -25,16 +26,16 @@ export const Poll = ({ title, options }: TPropsType) => {
               <input
                 className="bg-transparent w-8 h-8 rounded-full focus:ring-transparent outline-none checked:bg-primary appearance-none "
                 type="checkbox"
-                value={option}
-                name={option.toLowerCase()}
-                checked={selectedOption === option}
-                onChange={() => handleCheckboxChange(option)}
+                value={option.name}
+                name={option.name}
+                checked={selectedOption === option.name}
+                onChange={() => handleCheckboxChange(option.name)}
               />
               <label
                 className="text-primary font-semibold text-xl"
-                htmlFor={option.toLowerCase()}
+                htmlFor={option.name}
               >
-                {option}
+                {option.name}
               </label>
             </div>
           );
