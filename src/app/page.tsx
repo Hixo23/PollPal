@@ -1,4 +1,5 @@
 "use client";
+import { SignIn } from "@/components/pages/signin/SignIn";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home() {
@@ -13,12 +14,8 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {status === "unauthenticated" ? (
-        <button onClick={handleLogin}>Sign in with discord</button>
-      ) : (
-        <button onClick={handleSignOut}>Sign out</button>
-      )}
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 overflow-hidden">
+      {status === "unauthenticated" && <SignIn />}
     </main>
   );
 }

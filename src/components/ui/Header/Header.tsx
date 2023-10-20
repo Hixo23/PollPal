@@ -24,10 +24,6 @@ export const Profile = () => {
     setDropdownIsOpen(!dropdownIsOpen);
   };
 
-  const handleSignIn = () => {
-    signIn("discord");
-  };
-
   if (status === "authenticated")
     return (
       <div
@@ -43,14 +39,6 @@ export const Profile = () => {
         {dropdownIsOpen && <Dropdown />}
       </div>
     );
-  return (
-    <button
-      onClick={handleSignIn}
-      className="py-2 px-6 bg-primary text-text rounded-xl"
-    >
-      Sign in with discord!
-    </button>
-  );
 };
 
 export const Dropdown = () => {
