@@ -5,6 +5,9 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import wretch from "wretch";
 import { v4 as uuid } from "uuid";
 import { useRouter } from "next/navigation";
+import { AiFillDelete } from "react-icons/ai";
+import { toast } from "sonner";
+import { areOptionsValid } from "@/utils/areOptionsValid";
 
 const AddPoll = () => {
   const [formFields, setFormFields] = useState<TOptions[]>([
@@ -21,6 +24,7 @@ const AddPoll = () => {
     event: ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
+    console.log(event.target.value);
     let data = [...formFields];
 
     data[index] = {
@@ -42,13 +46,22 @@ const AddPoll = () => {
   };
 
   const handleDeleteOption = (id: string) => {
+    if (formFields.length < 1) return;
     setFormFields(formFields.filter((form) => form.id !== id));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (formData.title !== null && formData.options) {
+    if (!formData.title) {
+      return toast("Write a title");
+    }
+
+    if (!areOptionsValid(formFields)) {
+      return toast("All options must have names");
+    }
+
+    if (formData.title && formData.options) {
       wretch("/api/polls")
         .post(formData)
         .json((s) => router.push("/"));
@@ -83,7 +96,7 @@ const AddPoll = () => {
                     type="button"
                     className="mr-4"
                   >
-                    X
+                    <AiFillDelete />
                   </button>
                 </div>
                 <input
