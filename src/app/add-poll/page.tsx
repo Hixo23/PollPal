@@ -22,7 +22,7 @@ const AddPoll = () => {
 
   const handleFormChange = (
     event: ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
     console.log(event.target.value);
     let data = [...formFields];
@@ -69,39 +69,39 @@ const AddPoll = () => {
   };
 
   return (
-    <main className="min-h-[80vh] min-w-[95vw] w-full h-full bg-neutral-900 flex items-center justify-center">
+    <main className="flex h-full min-h-[80vh] w-full min-w-[95vw] items-center justify-center bg-neutral-900">
       <form
         onSubmit={handleSubmit}
-        className="w-1/3 min-h-[32rem] flex flex-col justify-around bg-neutral-800 rounded-xl p-6 text-text"
+        className="flex min-h-[32rem] w-1/3 flex-col justify-around rounded-xl bg-neutral-800 p-6 text-text"
       >
-        <div className="flex flex-col justify-start gap-3 w-[95%]">
-          <label className="text-md text-text/70 font-medium" htmlFor="title">
+        <div className="flex w-[95%] flex-col justify-start gap-3">
+          <label className="text-md font-medium text-text/70" htmlFor="title">
             Title of poll
           </label>
           <input
             onChange={handleChangeTitle}
-            className="bg-neutral-900 md:outline-none outline-primary border-0 rounded-md"
+            className="rounded-md border-0 bg-neutral-900 outline-primary md:outline-none"
             type="text"
             name="title"
           />
         </div>
-        <div className=" h-full flex flex-col gap-4 items-start mt-12">
+        <div className=" mt-12 flex h-full flex-col items-start gap-4">
           {formFields.map((form, index) => {
             return (
-              <div key={index} className=" w-full h-full flex flex-col gap-2">
+              <div key={index} className=" flex h-full w-full flex-col gap-2">
                 <div className="flex justify-between">
                   <label htmlFor="">Option {index + 1}</label>
                   <button
                     onClick={() => handleDeleteOption(form.id)}
                     type="button"
-                    className="mr-4"
+                    className="mr-8"
                   >
                     <AiFillDelete />
                   </button>
                 </div>
                 <input
                   onChange={(event) => handleFormChange(event, index)}
-                  className="bg-neutral-900 w-[95%] md:outline-none outline-primary border-0 rounded-md"
+                  className="w-[95%] rounded-md border-0 bg-neutral-900 outline-primary md:outline-none"
                   type="text"
                   name={form.name}
                 />
@@ -109,16 +109,16 @@ const AddPoll = () => {
             );
           })}
         </div>
-        <div className="flex h-full items-center my-4">
+        <div className="my-4 flex h-full items-center">
           <button
             type="button"
             onClick={handleAddNewOption}
-            className="py-2 px-4 bg-accent rounded-xl font-2xl font-bold "
+            className="font-2xl rounded-xl bg-accent px-4 py-2 font-bold transition-colors duration-100 hover:bg-accent/75 "
           >
             Add new option
           </button>
         </div>
-        <button className="py-2 px-4 bg-primary hover:bg-primary/70 transition-colors duration-100 rounded-xl font-2xl font-bold ">
+        <button className="font-2xl rounded-xl bg-primary px-4 py-2 font-bold transition-colors duration-100 hover:bg-primary/70 ">
           Add new poll
         </button>
       </form>

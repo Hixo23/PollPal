@@ -14,7 +14,7 @@ export const Tabs = () => {
     { name: "Current polls", url: "/" },
   ];
   return (
-    <div className="w-full flex justify-center gap-4 z-10">
+    <div className="z-10 flex w-full justify-center gap-4">
       {items.map((item, index) => (
         <Tab key={index} {...item} isActive={item.url === pathname} />
       ))}

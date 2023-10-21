@@ -21,13 +21,13 @@ export default function Home() {
 
   if (polls!.length < 1)
     return (
-      <div className="w-full flex justify-center my-24">
+      <div className="my-24 flex w-full justify-center">
         <p className="text-4xl text-text">No Polls found</p>
       </div>
     );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 overflow-hidden">
+    <main className="flex min-h-screen flex-col items-center justify-between overflow-hidden p-24">
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex flex-col gap-6">

@@ -14,9 +14,9 @@ export const Tab = ({
       href={url}
       className={`${
         isActive
-          ? "text-primary before:absolute before:left-0 before:top-6 before:content-[''] before:w-full before:h-1 before:bg-accent before:rounded-xl font-semibold"
+          ? "font-semibold text-primary before:absolute before:left-0 before:top-6 before:h-1 before:w-full before:rounded-xl before:bg-accent before:content-['']"
           : "text-text"
-      } cursor-pointer relative`}
+      } relative cursor-pointer`}
     >
       {name}
     </Link>

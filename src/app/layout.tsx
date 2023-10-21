@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className}  min-h-screen min-w-[95vw] bg-neutral-900 flex flex-col`}
+        className={`${inter.className}  flex min-h-screen min-w-[95vw] flex-col bg-neutral-900`}
       >
         <Providers>
           <Header />

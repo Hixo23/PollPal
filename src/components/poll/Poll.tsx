@@ -16,16 +16,16 @@ export const Poll = ({ title, options }: TPropsType) => {
   };
 
   return (
-    <div className="w-[36rem] h-[28rem] rounded-xl bg-neutral-800 border-t-4 px-4 py-6 flex flex-col justify-between gap-8 border-t-primary">
-      <p className="text-text font-bold text-3xl">{title}</p>
+    <div className="flex h-[28rem] w-[36rem] flex-col justify-between gap-8 rounded-xl border-t-4 border-t-primary bg-neutral-800 px-4 py-6">
+      <p className="text-3xl font-bold text-text">{title}</p>
       <div className="flex flex-col gap-7">
-        <p className="text-lg text-text font-medium">Make a choice</p>
+        <p className="text-lg font-medium text-text">Make a choice</p>
         {options.map((option, index) => {
           return (
             <div key={index} className="flex items-center gap-2">
               <input
                 key={index}
-                className="bg-transparent w-8 h-8 rounded-full focus:ring-transparent outline-none checked:bg-primary appearance-none "
+                className="h-8 w-8 appearance-none rounded-full bg-transparent outline-none checked:bg-primary focus:ring-transparent "
                 type="checkbox"
                 value={option.name}
                 name={option.name}
@@ -33,7 +33,7 @@ export const Poll = ({ title, options }: TPropsType) => {
                 onChange={() => handleCheckboxChange(option.name)}
               />
               <label
-                className="text-primary font-semibold text-xl"
+                className="text-xl font-semibold text-primary"
                 htmlFor={option.name}
               >
                 {option.name}
@@ -42,7 +42,7 @@ export const Poll = ({ title, options }: TPropsType) => {
           );
         })}
       </div>
-      <button className="bg-primary text-2xl text-text py-2 w-5/6 mx-auto  rounded-xl font-bold">
+      <button className="mx-auto w-5/6 rounded-xl bg-primary py-2 text-2xl  font-bold text-text">
         Vote
       </button>
     </div>
