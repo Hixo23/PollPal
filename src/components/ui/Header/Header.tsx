@@ -2,6 +2,7 @@
 
 import { Tabs } from "@/components/tabs/Tabs";
 import { useSession, signOut, signIn } from "next-auth/react";
+import Image from "next/image";
 import { useState } from "react";
 
 export const Header = () => {
@@ -28,10 +29,12 @@ export const Profile = () => {
         onClick={toggleDropdown}
         className="py-2 px-8 bg-primary cursor-pointer flex items-center justify-center rounded-lg gap-4 relative"
       >
-        <img
+        <Image
           className="w-12 h-12 rounded-full"
           src={session.user?.image as string}
-          alt=""
+          width={24}
+          height={24}
+          alt="Profile image"
         />
         <p className="text-text text-xl font-bold">{session.user?.name}</p>
         {dropdownIsOpen && <Dropdown />}

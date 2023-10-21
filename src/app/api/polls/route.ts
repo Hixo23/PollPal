@@ -28,7 +28,8 @@ export const POST = async (request: NextRequest) => {
   const newPoll = new PollSchema({
     title: data.title,
     options: data.options,
-    username: session.user.name,
+    userName: session.user.name,
+    id: Math.random(),
   });
 
   await newPoll.save();

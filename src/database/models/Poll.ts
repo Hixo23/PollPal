@@ -13,6 +13,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: String,
+    required: true,
+  },
 });
 
 export const PollSchema = models.Polls ?? model("Polls", schema);
