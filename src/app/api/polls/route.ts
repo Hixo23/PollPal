@@ -1,9 +1,9 @@
 import { connectToDataBase } from "@/database/connect";
 import { PollSchema } from "@/database/models/Poll";
 import { authOptions } from "@/lib/auth";
-import { error } from "console";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
+import { v4 as uuid } from "uuid";
 
 export const GET = async () => {
   await connectToDataBase();
@@ -29,7 +29,7 @@ export const POST = async (request: NextRequest) => {
     title: data.title,
     options: data.options,
     userName: session.user.name,
-    id: Math.random(),
+    id: uuid(),
   });
 
   await newPoll.save();

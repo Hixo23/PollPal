@@ -14,16 +14,24 @@ export default function Home() {
     "polls",
     async (): Promise<TPoll[]> => {
       return await wretch("api/polls").get().json();
-    }
+    },
   );
 
   if (isLoading) return <Loading />;
 
+  if (polls!.length < 1)
+    return (
+      <div className="w-full flex justify-center my-24">
+        <p className="text-4xl text-text">No Polls found</p>
+      </div>
+    );
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 overflow-hidden">
       {status === "unauthenticated" && <SignIn />}
+
       <div className="flex flex-col gap-6">
-        {polls!.map((poll: TPoll, i) => {
+        {polls!.reverse().map((poll: TPoll, i) => {
           return <Poll key={i} {...poll} />;
         })}
       </div>

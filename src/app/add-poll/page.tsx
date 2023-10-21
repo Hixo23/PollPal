@@ -37,7 +37,12 @@ const AddPoll = () => {
   };
 
   const handleAddNewOption = () => {
+    if (formFields.length > 4) return;
     setFormFields([...formFields, { name: "", votes: 0, id: uuid() }]);
+  };
+
+  const handleDeleteOption = (id: string) => {
+    setFormFields(formFields.filter((form) => form.id !== id));
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -70,16 +75,24 @@ const AddPoll = () => {
         <div className=" h-full flex flex-col gap-4 items-start mt-12">
           {formFields.map((form, index) => {
             return (
-              <>
-                <label htmlFor="">Option {index + 1}</label>
+              <div key={index} className=" w-full h-full flex flex-col gap-2">
+                <div className="flex justify-between">
+                  <label htmlFor="">Option {index + 1}</label>
+                  <button
+                    onClick={() => handleDeleteOption(form.id)}
+                    type="button"
+                    className="mr-4"
+                  >
+                    X
+                  </button>
+                </div>
                 <input
-                  key={index}
                   onChange={(event) => handleFormChange(event, index)}
-                  className="bg-neutral-900 md:outline-none outline-primary border-0 rounded-md"
+                  className="bg-neutral-900 w-[95%] md:outline-none outline-primary border-0 rounded-md"
                   type="text"
                   name={form.name}
                 />
-              </>
+              </div>
             );
           })}
         </div>
