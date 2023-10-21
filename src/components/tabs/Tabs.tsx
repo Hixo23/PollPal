@@ -7,13 +7,12 @@ import { Tab } from "./Tab";
 export const Tabs = () => {
   const pathname = usePathname();
 
-
   const items = [
     { name: "Add poll", url: "/add-poll" },
     { name: "Your polls", url: "/" },
   ];
   return (
-    <div className="z-10 flex w-full justify-center gap-4">
+    <div className="z-10 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-start">
       {items.map((item, index) => (
         <Tab key={index} {...item} isActive={item.url === pathname} />
       ))}
