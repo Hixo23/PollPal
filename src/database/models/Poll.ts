@@ -5,10 +5,22 @@ const schema = new Schema({
     type: String,
     required: true,
   },
-  options: {
-    type: Array,
-    required: true,
-  },
+  options: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      votes: {
+        type: Number,
+        default: 0,
+      },
+      id: {
+        type: Number,
+        default: 0,
+      },
+    },
+  ],
   userName: {
     type: String,
     required: true,

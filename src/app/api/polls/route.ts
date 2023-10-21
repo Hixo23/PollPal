@@ -25,13 +25,19 @@ export const POST = async (request: NextRequest) => {
 
   if (!session?.user)
     return NextResponse.json({ msg: "User not found" }, { status: 404 });
-  const newPoll = new PollSchema({
+
+  const newPollObject = {
     title: data.title,
     options: data.options,
     userName: session.user.name,
     id: uuid(),
-  });
+  };
+
+  const newPoll = new PollSchema(newPollObject);
 
   await newPoll.save();
-  return NextResponse.json({ msg: "Success" }, { status: 200 });
+  return NextResponse.json(
+    { msg: "Success", id: newPollObject.id },
+    { status: 200 },
+  );
 };

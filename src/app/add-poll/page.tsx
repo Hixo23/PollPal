@@ -16,6 +16,7 @@ const AddPoll = () => {
   const [formData, setFormData] = useState<TPoll>({
     title: "",
     options: formFields,
+    id: "",
   });
 
   const router = useRouter();
@@ -60,10 +61,13 @@ const AddPoll = () => {
       return toast("All options must have names");
     }
 
+    if (formData.options.length < 2)
+      return toast("You should add minimum 2 options");
+
     if (formData.title && formData.options) {
       wretch("/api/polls")
         .post(formData)
-        .json((s) => router.push("/"));
+        .json((s) => router.push(`/poll/${s.id}`));
     }
   };
 

@@ -2,14 +2,29 @@
 
 import { TOptions } from "@/types/types";
 import { useState } from "react";
+import wretch from "wretch";
 
 type TPropsType = {
   title: string;
   options: TOptions[];
+  id: string;
 };
 
-export const PollVote = ({ title, options }: TPropsType) => {
+export const PollVote = ({ title, options, id }: TPropsType) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const getSelectedOptionId = () => {
+    if (selectedOption)
+      return options.find((option) => option.name == selectedOption);
+  };
+
+  const handleVote = () => {
+    const selectedOption = getSelectedOptionId();
+
+    wretch(`/api/vote?pollId=${id}&optionId=${selectedOption?.id}`)
+      .get()
+      .json();
+  };
 
   const handleCheckboxChange = (selectedValue: string) => {
     setSelectedOption(selectedValue);
@@ -42,7 +57,10 @@ export const PollVote = ({ title, options }: TPropsType) => {
           );
         })}
       </div>
-      <button className="mx-auto w-5/6 rounded-xl bg-primary py-2 text-2xl  font-bold text-text">
+      <button
+        onClick={handleVote}
+        className="mx-auto w-5/6 rounded-xl bg-primary py-2 text-2xl  font-bold text-text"
+      >
         Vote
       </button>
     </div>

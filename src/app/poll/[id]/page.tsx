@@ -11,24 +11,23 @@ const PollPage = () => {
   const params = useParams();
   const router = useRouter();
 
-  const {
-    data: poll,
-    isLoading,
-    isError,
-  } = useQuery("poll", async (): Promise<TPoll> => {
-    return await wretch(`/api/poll?id=${params.id}`)
-      .get()
-      .notFound((err) => {
-        router.push("/");
-        return toast("This poll is not found!");
-      })
-      .json();
-  });
+  const { data: poll, isLoading } = useQuery(
+    "poll",
+    async (): Promise<TPoll> => {
+      return await wretch(`/api/poll?id=${params.id}`)
+        .get()
+        .notFound((err) => {
+          router.push("/");
+          return toast("This poll is not found!");
+        })
+        .json();
+    },
+  );
 
   return (
     <main className="flex min-h-screen min-w-full items-center justify-center">
-      {!isLoading && isError && (
-        <PollVote title={poll!.title} options={poll!.options} />
+      {!isLoading && (
+        <PollVote title={poll!.title} options={poll!.options} id={poll!.id} />
       )}
     </main>
   );

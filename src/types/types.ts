@@ -1,6 +1,7 @@
 export type TPoll = {
   title: string;
   options: TOptions[];
+  id: string;
 };
 
 export type TOptions = {
