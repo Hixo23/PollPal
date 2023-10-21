@@ -7,11 +7,10 @@ import { Tab } from "./Tab";
 export const Tabs = () => {
   const pathname = usePathname();
 
-  console.log(pathname);
 
   const items = [
     { name: "Add poll", url: "/add-poll" },
-    { name: "Current polls", url: "/" },
+    { name: "Your polls", url: "/" },
   ];
   return (
     <div className="z-10 flex w-full justify-center gap-4">

@@ -11,7 +11,5 @@ export const connectToDataBase = async () => {
       dbName: "test",
     });
     isConnected = true;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

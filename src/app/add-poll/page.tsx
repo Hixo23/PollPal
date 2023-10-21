@@ -24,7 +24,6 @@ const AddPoll = () => {
     event: ChangeEvent<HTMLInputElement>,
     index: number,
   ) => {
-    console.log(event.target.value);
     let data = [...formFields];
 
     data[index] = {

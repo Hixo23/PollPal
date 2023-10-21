@@ -1,14 +1,14 @@
 "use client";
 
 import { TOptions } from "@/types/types";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 type TPropsType = {
   title: string;
   options: TOptions[];
 };
 
-export const Poll = ({ title, options }: TPropsType) => {
+export const PollVote = ({ title, options }: TPropsType) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleCheckboxChange = (selectedValue: string) => {

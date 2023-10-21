@@ -1,7 +1,7 @@
 "use client";
 import { Loading } from "@/components/loading/Loading";
 import { SignIn } from "@/components/pages/signin/SignIn";
-import { Poll } from "@/components/poll/Poll";
+import { PollVote } from "@/components/poll/Poll";
 import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
@@ -32,7 +32,7 @@ export default function Home() {
 
       <div className="flex flex-col gap-6">
         {polls!.reverse().map((poll: TPoll, i) => {
-          return <Poll key={i} {...poll} />;
+          return <PollVote key={i} {...poll} />;
         })}
       </div>
     </main>
