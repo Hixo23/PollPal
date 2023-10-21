@@ -3,15 +3,19 @@
 import { TOptions, TPoll } from "@/types/types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import wretch from "wretch";
+import { v4 as uuid } from "uuid";
+import { useRouter } from "next/navigation";
 
 const AddPoll = () => {
   const [formFields, setFormFields] = useState<TOptions[]>([
-    { name: "", votes: 0 },
+    { name: "", votes: 0, id: uuid() },
   ]);
   const [formData, setFormData] = useState<TPoll>({
     title: "",
     options: formFields,
   });
+
+  const router = useRouter();
 
   const handleFormChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -33,7 +37,7 @@ const AddPoll = () => {
   };
 
   const handleAddNewOption = () => {
-    setFormFields([...formFields, { name: "", votes: 0 }]);
+    setFormFields([...formFields, { name: "", votes: 0, id: uuid() }]);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -42,7 +46,7 @@ const AddPoll = () => {
     if (formData.title !== null && formData.options) {
       wretch("/api/polls")
         .post(formData)
-        .json((s) => console.log(s));
+        .json((s) => router.push("/"));
     }
   };
 
@@ -50,7 +54,7 @@ const AddPoll = () => {
     <main className="min-h-[80vh] min-w-[95vw] w-full h-full bg-neutral-900 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="w-1/3 h-[32rem] flex flex-col justify-around bg-neutral-800 rounded-xl p-6 text-text"
+        className="w-1/3 min-h-[32rem] flex flex-col justify-around bg-neutral-800 rounded-xl p-6 text-text"
       >
         <div className="flex flex-col justify-start gap-3 w-[95%]">
           <label className="text-md text-text/70 font-medium" htmlFor="title">
@@ -66,26 +70,31 @@ const AddPoll = () => {
         <div className=" h-full flex flex-col gap-4 items-start mt-12">
           {formFields.map((form, index) => {
             return (
-              <input
-                key={index}
-                onChange={(event) => handleFormChange(event, index)}
-                className="bg-neutral-900 md:outline-none outline-primary border-0 rounded-md"
-                type="text"
-                name={form.name}
-              />
+              <>
+                <label htmlFor="">Option {index + 1}</label>
+                <input
+                  key={index}
+                  onChange={(event) => handleFormChange(event, index)}
+                  className="bg-neutral-900 md:outline-none outline-primary border-0 rounded-md"
+                  type="text"
+                  name={form.name}
+                />
+              </>
             );
           })}
         </div>
-        <div className="flex h-full items-center">
+        <div className="flex h-full items-center my-4">
           <button
             type="button"
             onClick={handleAddNewOption}
-            className="py-2 px-4 bg-primary rounded-xl font-2xl font-bold "
+            className="py-2 px-4 bg-accent rounded-xl font-2xl font-bold "
           >
             Add new option
           </button>
         </div>
-        <button>{JSON.stringify(formFields)}</button>
+        <button className="py-2 px-4 bg-primary hover:bg-primary/70 transition-colors duration-100 rounded-xl font-2xl font-bold ">
+          Add new poll
+        </button>
       </form>
     </main>
   );

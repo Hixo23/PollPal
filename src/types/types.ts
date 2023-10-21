@@ -6,4 +6,5 @@ export type TPoll = {
 export type TOptions = {
   name: string;
   votes: number;
+  id: string;
 };
