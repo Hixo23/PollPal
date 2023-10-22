@@ -1,3 +1,5 @@
+'use client'
+
 import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { getPoll } from "@/lib/getPoll";
