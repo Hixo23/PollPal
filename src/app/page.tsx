@@ -7,6 +7,7 @@ import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import wretch from "wretch";
+import { PollSummary } from "@/components/poll/PollSummary";
 
 export default function Home() {
   const { status } = useSession();
@@ -31,9 +32,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center overflow-hidden p-24">
       {status === "unauthenticated" && <SignIn />}
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 w-full">
         {polls!.reverse().map((poll: TPoll, i) => {
-          return <PollResults key={i} id={poll.id} />;
+          return <PollSummary key={i} {...poll} />;
         })}
       </div>
     </main>

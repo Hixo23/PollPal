@@ -3,6 +3,7 @@
 import { TOptions } from "@/types/types";
 import { useState } from "react";
 import wretch from "wretch";
+import { useRouter } from "next/navigation";
 
 type TPropsType = {
   title: string;
@@ -12,6 +13,8 @@ type TPropsType = {
 
 export const PollVote = ({ title, options, id }: TPropsType) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const router =  useRouter();
 
   const getSelectedOptionId = () => {
     if (selectedOption)
@@ -23,7 +26,7 @@ export const PollVote = ({ title, options, id }: TPropsType) => {
 
     wretch(`/api/vote?pollId=${id}&optionId=${selectedOption?.id}`)
       .get()
-      .json();
+      .json((_) => router.push(`/pollresults/${id}`));
   };
 
   const handleCheckboxChange = (selectedValue: string) => {
