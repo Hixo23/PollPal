@@ -1,34 +1,32 @@
-import { model, Schema, models } from "mongoose";
+import { TOptions } from "@/types/types";
+import mongoose, { Schema, Document, models, model } from "mongoose";
 
-const schema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  options: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      votes: {
-        type: Number,
-        default: 0,
-      },
-      id: {
-        type: Number,
-        default: 0,
-      },
-    },
-  ],
-  userName: {
-    type: String,
-    required: true,
-  },
-  id: {
-    type: String,
-    required: true,
-  },
+interface PollOption {
+  id: string; // This should be a string, not a number
+  // Other fields for your poll option
+}
+
+interface Poll extends Document {
+  title: string;
+  options: PollOption[];
+  userName: string;
+  id: string; // This should be a string, not a number
+}
+
+const pollOptionSchema = new Schema<TOptions>({
+  id: { type: String, required: true },
+  name: { type: String, required: true },
+  votes: { type: Number, required: true },
+  // Other fields for your poll option
 });
 
-export const PollSchema = models.Polls ?? model("Polls", schema);
+const pollSchema = new Schema<Poll>({
+  title: { type: String, required: true },
+  options: [pollOptionSchema],
+  userName: { type: String, required: true },
+  id: { type: String, required: true },
+});
+
+export const PollModel = models.Polls ?? model("Polls", pollSchema);
+
+export { PollModel as PollSchema };
