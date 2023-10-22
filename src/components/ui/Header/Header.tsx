@@ -19,6 +19,10 @@ export const Header = () => {
     console.log(isOpen);
   };
 
+  const handleLogin = () => {
+    signIn('discord')
+  }
+
   return (
     <header className="flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
       <h1 className="text-2xl font-bold text-text">
@@ -27,7 +31,7 @@ export const Header = () => {
       <button className="text-2xl text-text md:hidden" onClick={toggleNavbar}>
         <GiHamburgerMenu />
       </button>
-      {status == "authenticated" && (
+      {status == "authenticated" ? (
         <div
           className={` fixed left-0 top-0 flex h-screen w-screen flex-col  items-center justify-center gap-4 transition-transform duration-150 md:relative md:translate-x-0 ${
             isOpen ? "translate-x-0" : "-translate-x-[100%]"
@@ -42,7 +46,9 @@ export const Header = () => {
             <AiFillCloseCircle />
           </button>
         </div>
-      )}
+      ) : (
+        <button className="py-2 px-4 bg-primary rounded-xl" onClick={handleLogin}>Login</button>
+      ) }
     </header>
   );
 };
