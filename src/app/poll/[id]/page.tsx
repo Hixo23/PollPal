@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import { toast } from "sonner";
 import wretch from "wretch";
+import { getPoll } from "@/lib/getPoll";
 
 const PollPage = () => {
   const params = useParams();
@@ -13,15 +14,9 @@ const PollPage = () => {
 
   const { data: poll, isLoading } = useQuery(
     "poll",
-    async (): Promise<TPoll> => {
-      return await wretch(`/api/poll?id=${params.id}`)
-        .get()
-        .notFound((err) => {
-          router.push("/");
-          return toast("This poll is not found!");
-        })
-        .json();
-    },
+    {
+      queryFn: () => getPoll(params.id as string)
+    }
   );
 
   return (
