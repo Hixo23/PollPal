@@ -20,8 +20,8 @@ export const Header = () => {
   };
 
   const handleLogin = () => {
-    signIn('discord')
-  }
+    signIn("discord");
+  };
 
   return (
     <header className="flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
@@ -47,8 +47,13 @@ export const Header = () => {
           </button>
         </div>
       ) : (
-        <button className="py-2 px-4 bg-primary rounded-xl" onClick={handleLogin}>Login</button>
-      ) }
+        <button
+          className="rounded-xl bg-primary px-4 py-2"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+      )}
     </header>
   );
 };

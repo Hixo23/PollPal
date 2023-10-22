@@ -9,12 +9,9 @@ import { getPoll } from "@/lib/getPoll";
 export const PollResults = ({ id }: { id: string }) => {
   const router = useRouter();
 
-  const { data: poll, isLoading } = useQuery(
-    ["poll", id],
-    {
-      queryFn: () => getPoll(id as string)
-    }
-  );
+  const { data: poll, isLoading } = useQuery(["poll", id], {
+    queryFn: () => getPoll(id as string),
+  });
 
   return (
     <>

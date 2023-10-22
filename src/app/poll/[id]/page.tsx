@@ -12,12 +12,9 @@ const PollPage = () => {
   const params = useParams();
   const router = useRouter();
 
-  const { data: poll, isLoading } = useQuery(
-    "poll",
-    {
-      queryFn: () => getPoll(params.id as string)
-    }
-  );
+  const { data: poll, isLoading } = useQuery("poll", {
+    queryFn: () => getPoll(params.id as string),
+  });
 
   return (
     <main className="flex min-h-[80vh] min-w-full items-center justify-center">

@@ -14,7 +14,7 @@ type TPropsType = {
 export const PollVote = ({ title, options, id }: TPropsType) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
-  const router =  useRouter();
+  const router = useRouter();
 
   const getSelectedOptionId = () => {
     if (selectedOption)

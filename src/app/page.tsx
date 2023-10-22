@@ -32,8 +32,8 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center overflow-hidden p-24">
       {status === "unauthenticated" && <SignIn />}
 
-      <div className="flex flex-col gap-6 w-full">
-        {polls!.reverse().map((poll: TPoll, i) => {
+      <div className="flex w-full flex-col gap-6">
+        {polls!.map((poll: TPoll, i) => {
           return <PollSummary key={i} {...poll} />;
         })}
       </div>
