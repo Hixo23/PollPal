@@ -2,7 +2,7 @@
 import { Loading } from "@/components/loading/Loading";
 import { SignIn } from "@/components/pages/signin/SignIn";
 import { PollVote } from "@/components/poll/Poll";
-import { PollResults } from "@/components/poll/PollResults";
+import { PollResults } from "@/components/pollresults/PollResults";
 import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
