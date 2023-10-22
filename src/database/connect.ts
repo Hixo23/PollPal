@@ -7,7 +7,7 @@ export const connectToDataBase = async () => {
     return;
   }
   try {
-    await mongoose.connect("mongodb://localhost:27017", {
+    await mongoose.connect("mongodb+srv://hixo:G9kmpIAcg2u5bYzs@dashboard.di3tiv5.mongodb.net/?retryWrites=true&w=majority", {
       dbName: "test",
     });
     isConnected = true;
