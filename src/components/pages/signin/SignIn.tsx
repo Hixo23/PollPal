@@ -6,7 +6,7 @@ export const SignIn = () => {
   };
   return (
     <div className="absolute left-0 top-0 z-20 flex h-full w-full items-center justify-center overflow-hidden bg-neutral-900 text-text">
-      <div className="flex h-1/2 w-1/3 flex-col items-center justify-between rounded-xl bg-neutral-800 py-8">
+      <div className="flex h-1/2 w-1/2 flex-col items-center justify-between rounded-xl bg-neutral-800 py-8">
         <div className="text-center">
           <p className="text-3xl font-bold">Hello!</p>
           <span className="text-text/60">

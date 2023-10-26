@@ -29,7 +29,7 @@ export const PollSummary = ({
   };
 
   return (
-    <div className="mx-auto grid h-16 w-1/2 grid-cols-3 grid-rows-1 items-center justify-items-center rounded-xl bg-neutral-800 p-4 text-text">
+    <div className="mx-auto grid h-16 min-w-fit w-1/2 grid-cols-3 grid-rows-1 items-center justify-items-center rounded-xl bg-neutral-800 p-4 text-text">
       <p
         className="flex
       items-center gap-2 font-bold"

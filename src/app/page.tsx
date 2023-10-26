@@ -1,8 +1,6 @@
 "use client";
 import { Loading } from "@/components/loading/Loading";
 import { SignIn } from "@/components/pages/signin/SignIn";
-import { PollVote } from "@/components/poll/Poll";
-import { PollResults } from "@/components/pollresults/PollResults";
 import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
@@ -10,7 +8,7 @@ import wretch from "wretch";
 import { PollSummary } from "@/components/poll/PollSummary";
 
 export default function Home() {
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   const { data: polls, isLoading } = useQuery(
     "polls",
@@ -33,9 +31,11 @@ export default function Home() {
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex w-full flex-col gap-6">
-        {polls!.map((poll: TPoll, i) => {
-          return <PollSummary key={i} {...poll} />;
-        })}
+        {polls!
+          .filter((poll) => poll.userName == data?.user?.name)
+          .map((poll: TPoll, i) => {
+            return <PollSummary key={i} {...poll} />;
+          })}
       </div>
     </main>
   );
