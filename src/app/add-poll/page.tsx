@@ -17,6 +17,7 @@ const AddPoll = () => {
     title: "",
     options: formFields,
     id: "",
+    userName: "",
   });
 
   const router = useRouter();

@@ -8,11 +8,12 @@ import { v4 as uuid } from "uuid";
 export const GET = async () => {
   await connectToDataBase();
 
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  if(!session) return NextResponse.json({ msg: "User not found" }, { status: 404 });
+  if (!session)
+    return NextResponse.json({ msg: "User not found" }, { status: 404 });
 
-  const polls = await PollSchema.find({});
+  const polls = await PollSchema.find({ userName: session.user?.name });
 
   return NextResponse.json(polls);
 };
