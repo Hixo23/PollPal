@@ -27,10 +27,10 @@ export default function Home() {
     );
 
   return (
-    <main className="flex min-h-screen flex-col items-center overflow-hidden p-24">
+    <main className="flex min-h-screen justify-center overflow-hidden p-4 md:p-24">
       {status === "unauthenticated" && <SignIn />}
 
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full flex-col items-center justify-center gap-6">
         {polls!
           .filter((poll) => poll.userName == data?.user?.name)
           .map((poll: TPoll, i) => {

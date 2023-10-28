@@ -26,10 +26,10 @@ export const PollSummary = ({
   };
 
   return (
-    <div className="mx-auto grid h-16 w-1/2 min-w-fit grid-cols-3 grid-rows-1 items-center justify-items-center rounded-xl bg-neutral-800 p-4 text-text">
+    <div className="mx-auto grid min-h-[4rem] w-1/2 min-w-full grid-cols-3 grid-rows-1 items-center justify-items-center rounded-xl bg-neutral-800 p-4 text-text">
       <p
         className="flex
-      items-center gap-2 font-bold"
+      items-center gap-2 text-center font-bold"
       >
         <LuSubtitles /> <span>{title}</span>
       </p>
@@ -41,7 +41,7 @@ export const PollSummary = ({
       </p>
       <button
         onClick={handleClick}
-        className="w-40 rounded-xl bg-primary py-2 shadow-primary drop-shadow-2xl"
+        className="rounded-xl bg-primary px-4 py-2 shadow-primary drop-shadow-2xl md:w-40"
       >
         Results
       </button>

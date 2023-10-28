@@ -24,7 +24,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
+    <header className="z-20 flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
       <h1 className="text-2xl font-bold text-text">
         <Link href={"/"}>Nayata</Link>
       </h1>
