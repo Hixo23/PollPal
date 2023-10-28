@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
 import { getPoll } from "@/lib/getPoll";
-import { useEffect, useState } from "react";
 
 export const PollResults = ({ id }: { id: string }) => {
   const router = useRouter();
@@ -12,12 +11,9 @@ export const PollResults = ({ id }: { id: string }) => {
     queryFn: () => getPoll(id as string),
   });
 
-  const [allVotes, setAllVotes] = useState(0);
-
-  useEffect(() => {
-    poll?.options.forEach(f => setAllVotes(prevState => { return prevState += f.votes }))
-  },[poll?.options])
-
+  const sumOfVotes: number = poll
+    ? poll?.options.reduce((total, item) => total + item.votes, 0)
+    : 0;
 
   return (
     <>
@@ -37,12 +33,18 @@ export const PollResults = ({ id }: { id: string }) => {
                   <p>
                     {index + 1}. {option.name}
                   </p>
-                 <progress max="100" className="progress-bar-secondary progress-value-primary rounded-xl" value={Math.round((option.votes / allVotes) * 100)}/>
+                  <progress
+                    max="100"
+                    className="rounded-xl progress-bar-secondary progress-value-primary"
+                    value={Math.round((option.votes / sumOfVotes) * 100)}
+                  />
                   <p>({option.votes})</p>
                 </div>
               );
             })}
-            <p className="font-semibold text-text/60">All votes: {allVotes}</p>
+            <p className="font-semibold text-text/60">
+              All votes: {sumOfVotes}
+            </p>
           </div>
         </div>
       )}

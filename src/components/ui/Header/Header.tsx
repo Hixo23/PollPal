@@ -84,6 +84,7 @@ export const Profile = ({
         alt="Profile image"
       />
       <p className="text-xl font-bold text-text">{session.user?.name}</p>
+      {dropdownIsOpen && <Dropdown />}
     </div>
   );
 };
