@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
-import plugin from 'tailwindcss/plugin';
+import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 interface FlattenedColors {
   [key: string]: string;
@@ -8,9 +8,9 @@ interface FlattenedColors {
 type ColorValue = string | Record<string, string>;
 
 const customPlugin = plugin(({ matchUtilities, theme }) => {
-  const colors = theme('colors') as Record<string, ColorValue>;
+  const colors = theme("colors") as Record<string, ColorValue>;
   const flattenedColors = Object.entries(colors).reduce((acc, [key, value]) => {
-    if (typeof value === 'string') acc[key] = value;
+    if (typeof value === "string") acc[key] = value;
     else {
       Object.entries(value).forEach(([number, color]) => {
         acc[`${key}-${number}`] = color;
@@ -21,18 +21,18 @@ const customPlugin = plugin(({ matchUtilities, theme }) => {
 
   matchUtilities(
     {
-      'progress-bar': (value) => ({
+      "progress-bar": (value) => ({
         backgroundColor: value,
-        '&::-webkit-progress-bar': {
+        "&::-webkit-progress-bar": {
           backgroundColor: value,
         },
       }),
-      'progress-value': (value) => ({
+      "progress-value": (value) => ({
         color: value,
-        '&::-webkit-progress-value': {
+        "&::-webkit-progress-value": {
           backgroundColor: value,
         },
-        '&::-moz-progress-bar': {
+        "&::-moz-progress-bar": {
           backgroundColor: value,
         },
       }),
@@ -60,10 +60,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    customPlugin,
-  ],
+  plugins: [require("@tailwindcss/forms"), customPlugin],
 };
 
 export default config;
