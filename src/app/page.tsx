@@ -30,7 +30,7 @@ export default function Home() {
     );
 
   return (
-    <main className="flex min-h-screen justify-center overflow-hidden p-4 md:p-24">
+    <main className="flex min-h-full justify-center overflow-hidden p-4 md:p-24">
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex w-full flex-col items-center justify-center gap-6">
