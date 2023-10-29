@@ -22,7 +22,7 @@ export default function Home() {
 
   if (isLoading) return <Loading />;
 
-  if (polls!.length < 1)
+  if (polls && polls.length < 1)
     return (
       <div className="my-24 flex w-full justify-center">
         <p className="text-4xl text-text">No Polls found</p>
