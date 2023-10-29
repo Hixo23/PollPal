@@ -5,7 +5,6 @@ import { useQuery } from "react-query";
 import { getPoll } from "@/lib/getPoll";
 import { Loading } from "@/components/loading/Loading";
 import { PollResults } from "@/components/pollresults/PollResults";
-import { toast } from "sonner";
 
 export const PollResultsPage = () => {
   const params = useParams();
@@ -20,7 +19,6 @@ export const PollResultsPage = () => {
   });
 
   if (isError) {
-    toast("Error");
     router.push("/");
   }
 
