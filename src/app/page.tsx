@@ -15,14 +15,11 @@ export default function Home() {
     async (): Promise<TPoll[]> => {
       return await wretch("api/polls").get().json();
     },
-    {
-      refetchInterval: 2000,
-    },
   );
 
   if (isLoading) return <Loading />;
 
-  if (polls && polls.length < 1)
+  if (polls!.length < 1)
     return (
       <div className="my-24 flex w-full justify-center">
         <p className="text-4xl text-text">No Polls found</p>
@@ -30,7 +27,7 @@ export default function Home() {
     );
 
   return (
-    <main className="flex min-h-full justify-center overflow-hidden p-4 md:p-24">
+    <main className="flex min-h-screen justify-center overflow-hidden p-4 md:p-24">
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex w-full flex-col items-center justify-center gap-6">
