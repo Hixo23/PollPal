@@ -21,7 +21,7 @@ export const PollResultsPage = () => {
 
   if (isError) {
     toast("Error");
-    return router.push("/");
+    router.push("/");
   }
 
   if (isLoading) return <Loading />;
