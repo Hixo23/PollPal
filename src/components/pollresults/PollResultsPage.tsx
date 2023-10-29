@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { getPoll } from "@/lib/getPoll";
 import { Loading } from "@/components/loading/Loading";
@@ -8,7 +8,6 @@ import { PollResults } from "@/components/pollresults/PollResults";
 
 export const PollResultsPage = () => {
   const params = useParams();
-  const router = useRouter();
 
   const {
     data: poll,
@@ -19,7 +18,7 @@ export const PollResultsPage = () => {
   });
 
   if (isError) {
-    router.push("/");
+    return <p className="text-3xl">Poll not found!</p>;
   }
 
   if (isLoading) return <Loading />;
