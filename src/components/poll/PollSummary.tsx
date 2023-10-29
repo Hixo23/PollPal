@@ -5,6 +5,7 @@ import { LuSubtitles, LuVote } from "react-icons/lu";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ContextMenu } from "@radix-ui/themes";
+import { deletePoll } from "@/lib/deletePoll";
 
 export const PollSummary = ({
   id,
@@ -24,10 +25,6 @@ export const PollSummary = ({
 
   const handleClick = () => {
     router.push(`/pollresults/${id}`);
-  };
-
-  const handleDelete = () => {
-    console.log("wow mega");
   };
 
   return (
@@ -55,7 +52,9 @@ export const PollSummary = ({
         </div>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item onClick={handleDelete}>Delete</ContextMenu.Item>
+        <ContextMenu.Item onClick={() => deletePoll(id)}>
+          Delete
+        </ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu.Root>
   );

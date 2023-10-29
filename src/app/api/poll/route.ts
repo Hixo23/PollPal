@@ -17,3 +17,20 @@ export const GET = async (request: NextRequest) => {
 
   return NextResponse.json(poll, { status: 200 });
 };
+
+export const DELETE = async (request: NextRequest) => {
+  await connectToDataBase();
+
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+
+  const poll = await PollSchema.findOneAndDelete({ id: id });
+
+  if (!poll)
+    return NextResponse.json(
+      { msg: "This poll is not found" },
+      { status: 404 },
+    );
+
+  return NextResponse.json({ msg: "Poll deleted!" }, { status: 200 });
+};

@@ -15,6 +15,9 @@ export default function Home() {
     async (): Promise<TPoll[]> => {
       return await wretch("api/polls").get().json();
     },
+    {
+      refetchInterval: 2000,
+    },
   );
 
   if (isLoading) return <Loading />;
