@@ -4,6 +4,7 @@ import "./globals.css";
 import "@radix-ui/themes/styles.css";
 import { Header } from "@/components/ui/Header/Header";
 import { Providers } from "@/components/providers/Providers";
+import { Theme } from "@radix-ui/themes";
 
 const inter = Poppins({
   weight: ["400", "600", "800", "700"],
@@ -27,7 +28,9 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          {children}
+          <Theme accentColor="orange" panelBackground="solid" appearance="dark">
+            {children}
+          </Theme>
         </Providers>
       </body>
     </html>

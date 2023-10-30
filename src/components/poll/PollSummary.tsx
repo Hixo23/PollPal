@@ -2,7 +2,6 @@
 
 import { TOptions } from "@/types/types";
 import { LuSubtitles, LuVote } from "react-icons/lu";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ContextMenu } from "@radix-ui/themes";
 import { deletePoll } from "@/lib/deletePoll";
@@ -52,9 +51,7 @@ export const PollSummary = ({
         </div>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item onClick={() => deletePoll(id)}>
-          Delete
-        </ContextMenu.Item>
+        <ContextMenu.Item>Delete</ContextMenu.Item>
       </ContextMenu.Content>
     </ContextMenu.Root>
   );

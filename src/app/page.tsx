@@ -15,6 +15,9 @@ export default function Home() {
     async (): Promise<TPoll[]> => {
       return await wretch("api/polls").get().json();
     },
+    {
+      refetchInterval: 2000,
+    },
   );
 
   if (isLoading) return <Loading />;
@@ -33,8 +36,8 @@ export default function Home() {
       <div className="flex w-full flex-col items-center justify-center gap-6">
         {polls!
           .filter((poll) => poll.userName == data?.user?.name)
-          .map((poll: TPoll, i) => {
-            return <PollSummary key={i} {...poll} />;
+          .map((poll: TPoll) => {
+            return <PollSummary key={poll.id} {...poll} />;
           })}
       </div>
     </main>
