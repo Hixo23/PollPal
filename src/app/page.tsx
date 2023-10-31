@@ -6,19 +6,29 @@ import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import wretch from "wretch";
 import { PollSummary } from "@/components/poll/PollSummary";
+import { toast } from "sonner";
 
 export default function Home() {
   const { status, data } = useSession();
 
-  const { data: polls, isLoading } = useQuery(
+  const {
+    data: polls,
+    isLoading,
+    isError,
+  } = useQuery(
     "polls",
     async (): Promise<TPoll[]> => {
-      return await wretch("api/polls").get().json();
+      return await wretch("api/polls")
+        .get()
+        .unauthorized(() => toast("Unauthorized"))
+        .json();
     },
     {
       refetchInterval: 2000,
     },
   );
+
+  if (isError) return <SignIn />;
 
   if (isLoading) return <Loading />;
 
@@ -34,9 +44,11 @@ export default function Home() {
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex w-full flex-col items-center justify-center gap-6">
-        {polls!.map((poll: TPoll) => {
-          return <PollSummary key={poll.id} {...poll} />;
-        })}
+        {!isError &&
+          polls!.length >= 1 &&
+          polls?.map((poll: TPoll) => {
+            return <PollSummary key={poll.id} {...poll} />;
+          })}
       </div>
     </main>
   );
