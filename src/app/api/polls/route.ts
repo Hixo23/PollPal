@@ -11,7 +11,7 @@ export const GET = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session)
-    return NextResponse.json({ msg: "User not found" }, { status: 404 });
+    return NextResponse.json({ msg: "User not found" }, { status: 200 });
 
   const polls = await PollSchema.find({ userName: session.user?.name });
 

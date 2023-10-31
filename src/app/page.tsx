@@ -34,11 +34,9 @@ export default function Home() {
       {status === "unauthenticated" && <SignIn />}
 
       <div className="flex w-full flex-col items-center justify-center gap-6">
-        {polls!
-          .filter((poll) => poll.userName == data?.user?.name)
-          .map((poll: TPoll) => {
-            return <PollSummary key={poll.id} {...poll} />;
-          })}
+        {polls!.map((poll: TPoll) => {
+          return <PollSummary key={poll.id} {...poll} />;
+        })}
       </div>
     </main>
   );
