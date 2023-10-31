@@ -86,7 +86,6 @@ export const Profile = ({
         </div>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content className="mt-4 w-40 text-center" size={"2"}>
-        <DropdownMenu.Item className="text-center">Sign out</DropdownMenu.Item>
         <DropdownMenu.Item onClick={handleSignout} className="text-center">
           Sign out
         </DropdownMenu.Item>
