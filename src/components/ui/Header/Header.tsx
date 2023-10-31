@@ -1,6 +1,7 @@
 "use client";
 
 import { Tabs } from "@/components/tabs/Tabs";
+import { DropdownMenu } from "@radix-ui/themes";
 import { Session } from "next-auth";
 import { useSession, signOut, signIn } from "next-auth/react";
 import Image from "next/image";
@@ -39,6 +40,7 @@ export const Header = () => {
         >
           <Tabs />
           <Profile session={session} status={status} />
+
           <button
             onClick={toggleNavbar}
             className="absolute right-0 top-0 z-20 m-4 flex text-4xl  text-text md:hidden"
@@ -65,43 +67,23 @@ export const Profile = ({
   session: Session;
   status: string;
 }) => {
-  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setDropdownIsOpen(!dropdownIsOpen);
-  };
-
   return (
-    <div
-      onClick={toggleDropdown}
-      className="relative flex cursor-pointer items-center justify-center gap-4 rounded-lg bg-primary px-8 py-2"
-    >
-      <Image
-        className="h-12 w-12 rounded-full"
-        src={session.user?.image as string}
-        width={24}
-        height={24}
-        alt="Profile image"
-      />
-      <p className="text-xl font-bold text-text">{session.user?.name}</p>
-      {dropdownIsOpen && <Dropdown />}
-    </div>
-  );
-};
-
-export const Dropdown = () => {
-  const handleSignout = () => {
-    signOut();
-  };
-
-  return (
-    <div className="absolute left-0 top-20 flex w-full flex-col rounded-xl bg-primary py-2 ">
-      <button
-        onClick={handleSignout}
-        className="z-10 h-full w-full cursor-pointer rounded-xl hover:bg-primary/70"
-      >
-        Sign out
-      </button>
-    </div>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-lg bg-primary px-8 py-2">
+          <Image
+            className="h-12 w-12 rounded-full"
+            src={session.user?.image as string}
+            width={24}
+            height={24}
+            alt="Profile image"
+          />
+          <p className="text-xl font-bold text-text">{session.user?.name}</p>
+        </div>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content className="mt-4 w-40 text-center" size={"2"}>
+        <DropdownMenu.Item className="text-center">Sign out</DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };

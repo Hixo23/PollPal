@@ -27,8 +27,8 @@ export default function RootLayout({
         className={`${inter.className}  flex min-h-screen min-w-[95vw] flex-col bg-neutral-900`}
       >
         <Providers>
-          <Header />
           <Theme accentColor="orange" panelBackground="solid" appearance="dark">
+            <Header />
             {children}
           </Theme>
         </Providers>
