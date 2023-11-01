@@ -41,9 +41,9 @@ export const PollVote = ({
 
   return (
     <div
-      className={`flex h-1/3 min-h-[350px] w-1/2 min-w-[400px] flex-col ${
-        !voteButtonDisabled && "justify-between "
-      } gap-8 rounded-xl border-t-4 border-t-primary bg-neutral-800 p-4 md:h-[28rem] md:w-[36rem] md:p-6`}
+      className={`flex min-h-fit w-1/2 min-w-[400px] flex-col  ${
+        !voteButtonDisabled && "justify-between"
+      } gap-8 rounded-xl border-t-4 border-t-primary bg-neutral-800 md:h-[28rem] md:w-[36rem] md:p-4`}
     >
       <p className="text-3xl font-bold text-text">{title}</p>
       <div className="flex flex-col gap-7">
@@ -73,7 +73,7 @@ export const PollVote = ({
       {!voteButtonDisabled && (
         <button
           onClick={handleVote}
-          className="mx-auto w-5/6 rounded-xl bg-primary py-2 text-2xl  font-bold text-text"
+          className="mx-auto mb-4 w-5/6 rounded-xl bg-primary py-2 text-2xl font-bold text-text"
         >
           Vote
         </button>
