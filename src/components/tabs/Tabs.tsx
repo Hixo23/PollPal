@@ -8,8 +8,8 @@ export const Tabs = () => {
   const pathname = usePathname();
 
   const items = [
-    { name: "Add poll", url: "/add-poll" },
-    { name: "Your polls", url: "/" },
+    { name: "Add poll", url: "/dashboard/add-poll" },
+    { name: "Your polls", url: "/dashboard" },
   ];
   return (
     <div className="z-10 flex w-full flex-col items-center justify-center gap-4 md:flex-row md:items-start">

@@ -1,55 +1,25 @@
 "use client";
-import { Loading } from "@/components/loading/Loading";
-import { SignIn } from "@/components/pages/signin/SignIn";
-import { TPoll } from "@/types/types";
-import { useSession } from "next-auth/react";
-import { useQuery } from "react-query";
-import wretch from "wretch";
-import { PollSummary } from "@/components/poll/PollSummary";
-import { toast } from "sonner";
+
+import { PollVote } from "@/components/poll/Poll";
 
 export default function Home() {
-  const { status, data } = useSession();
-
-  const {
-    data: polls,
-    isLoading,
-    isError,
-  } = useQuery(
-    "polls",
-    async (): Promise<TPoll[]> => {
-      return await wretch("api/polls")
-        .get()
-        .unauthorized(() => toast("Unauthorized"))
-        .json();
-    },
-    {
-      refetchInterval: 2000,
-    },
-  );
-
-  if (isError) return <SignIn />;
-
-  if (isLoading) return <Loading />;
-
-  if (polls!.length < 1)
-    return (
-      <div className="my-24 flex w-full justify-center">
-        <p className="text-4xl text-text">No Polls found</p>
-      </div>
-    );
-
   return (
-    <main className="flex min-h-screen justify-center overflow-hidden p-4 md:p-24">
-      {status === "unauthenticated" && <SignIn />}
-
-      <div className="flex w-full flex-col items-center justify-center gap-6">
-        {!isError &&
-          polls!.length >= 1 &&
-          polls?.map((poll: TPoll) => {
-            return <PollSummary key={poll.id} {...poll} />;
-          })}
-      </div>
+    <main className="flex min-h-screen w-[95vw] justify-center overflow-hidden p-4 ">
+      <section className="flex flex-col items-center justify-center gap-12 md:flex-row md:justify-between">
+        <h2 className="w-1/2 text-6xl font-bold text-text">
+          Create your poll <span className="text-primary">in seconds!</span>
+        </h2>
+        <PollVote
+          title="Example poll"
+          options={[
+            { name: "Example", id: "1", votes: 0 },
+            { name: "Example", id: "2", votes: 0 },
+            { name: "Example", id: "3", votes: 0 },
+          ]}
+          id="sdad"
+          voteButtonDisabled={true}
+        />
+      </section>
     </main>
   );
 }

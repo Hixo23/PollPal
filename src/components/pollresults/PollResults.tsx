@@ -32,17 +32,19 @@ export const PollResults = ({ id }: { id: string }) => {
               return (
                 <div
                   key={index}
-                  className="flex items-center gap-2 text-xl font-semibold text-text"
+                  className="grid grid-cols-2 grid-rows-1 gap-2 text-xl font-semibold text-text"
                 >
                   <p>
                     {index + 1}. {option.name}
                   </p>
-                  <progress
-                    max="100"
-                    className="rounded-xl progress-bar-secondary progress-value-primary"
-                    value={Math.round((option.votes / sumOfVotes) * 100)}
-                  />
-                  <p>({option.votes})</p>
+                  <div className="flex items-center gap-2">
+                    <progress
+                      max="100"
+                      className="rounded-xl progress-bar-secondary progress-value-primary"
+                      value={Math.round((option.votes / sumOfVotes) * 100)}
+                    />
+                    <p>({option.votes})</p>
+                  </div>
                 </div>
               );
             })}

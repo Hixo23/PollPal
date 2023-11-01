@@ -17,7 +17,6 @@ export const Header = () => {
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen);
   };
 
   const handleLogin = () => {
@@ -27,30 +26,36 @@ export const Header = () => {
   return (
     <header className="z-20 flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
       <h1 className="text-2xl font-bold text-text">
-        <Link href={"/"}>Nayata</Link>
+        <Link href={"/"}>PollPal</Link>
       </h1>
-      <button className="text-2xl text-text md:hidden" onClick={toggleNavbar}>
-        <GiHamburgerMenu />
-      </button>
-      {status == "authenticated" ? (
-        <div
-          className={` fixed left-0 top-0 flex h-screen w-screen flex-col  items-center justify-center gap-4 transition-transform duration-150 md:relative md:translate-x-0 ${
-            isOpen ? "translate-x-0" : "-translate-x-[100%]"
-          } bg-neutral-900 md:relative md:h-auto md:w-full md:flex-row md:justify-between md:gap-0 md:bg-transparent`}
-        >
-          <Tabs />
-          <Profile session={session} status={status} />
 
+      {status == "authenticated" ? (
+        <>
           <button
+            className="text-2xl text-text md:hidden"
             onClick={toggleNavbar}
-            className="absolute right-0 top-0 z-20 m-4 flex text-4xl  text-text md:hidden"
           >
-            <AiFillCloseCircle />
+            <GiHamburgerMenu />
           </button>
-        </div>
+          <div
+            className={`fixed left-0 top-0 z-20 flex h-screen w-screen flex-col  items-center justify-center gap-4 transition-transform duration-150 md:relative md:translate-x-0 ${
+              isOpen ? "translate-x-0" : "-translate-x-[100%]"
+            } bg-neutral-900 md:relative md:h-auto md:w-full md:flex-row md:justify-between md:gap-0 md:bg-transparent`}
+          >
+            <Tabs />
+            <Profile session={session} status={status} />
+
+            <button
+              onClick={toggleNavbar}
+              className="absolute right-0 top-0 z-20 m-4 flex text-4xl  text-text md:hidden"
+            >
+              <AiFillCloseCircle />
+            </button>
+          </div>
+        </>
       ) : (
         <button
-          className="rounded-xl bg-primary px-4 py-2"
+          className="rounded-xl bg-primary px-4 py-2 text-black"
           onClick={handleLogin}
         >
           Login

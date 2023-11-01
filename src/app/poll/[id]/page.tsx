@@ -19,7 +19,12 @@ const PollPage = () => {
   return (
     <main className="flex min-h-[80vh] min-w-full items-center justify-center">
       {!isLoading && (
-        <PollVote title={poll!.title} options={poll!.options} id={poll!.id} />
+        <PollVote
+          voteButtonDisabled={false}
+          title={poll!.title}
+          options={poll!.options}
+          id={poll!.id}
+        />
       )}
     </main>
   );
