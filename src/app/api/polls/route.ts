@@ -28,13 +28,13 @@ export const POST = async (request: NextRequest) => {
   if (!data.title || !data.options)
     return NextResponse.json({ msg: "No data" }, { status: 400 });
 
-  if (!session?.user)
-    return NextResponse.json({ msg: "User not found" }, { status: 404 });
+  const username = session?.user?.name ? session.user.name : uuid();
+
 
   const newPollObject = {
     title: data.title,
     options: data.options,
-    userName: session.user.name,
+    userName: username,
     id: uuid(),
   };
 
