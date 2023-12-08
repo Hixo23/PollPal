@@ -8,7 +8,7 @@ export const Tabs = () => {
   const pathname = usePathname();
 
   const items = [
-    { name: "Add poll", url: "/create-poll" },
+    { name: "Create poll", url: "/create-poll" },
     { name: "Your polls", url: "/dashboard" },
   ];
   return (
