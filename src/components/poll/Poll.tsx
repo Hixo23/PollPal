@@ -27,6 +27,11 @@ export const PollVote = ({
       return options.find((option) => option.id == selectedOption);
   };
 
+  const sumOfVotes: number = options.reduce(
+    (total, item) => total + item.votes,
+    0,
+  );
+
   const handleVote = () => {
     const selectedOption = getSelectedOptionId();
 
@@ -36,6 +41,7 @@ export const PollVote = ({
   };
 
   const handleCheckboxChange = (selectedValue: string) => {
+    if (selectedValue === selectedOption) return setSelectedOption(null);
     setSelectedOption(selectedValue);
   };
 
@@ -43,7 +49,7 @@ export const PollVote = ({
     <div
       className={`flex min-h-fit w-1/2 min-w-[400px] flex-col  ${
         !voteButtonDisabled && "justify-between"
-      } gap-8 rounded-xl border-t-4 border-t-primary bg-neutral-800 md:h-[28rem] md:w-[36rem] md:p-4`}
+      } gap-8 rounded-lg border-t-4 border-t-primary bg-neutral-800 p-4 md:w-[36rem]`}
     >
       <p className="text-3xl font-bold text-text">{title}</p>
       <div className="flex flex-col gap-7">
@@ -78,6 +84,8 @@ export const PollVote = ({
           Vote
         </button>
       )}
+      <hr className="w-full border-gray-400" />
+      <p className="font-medium text-gray-400 md:text-xl">{sumOfVotes} Votes</p>
     </div>
   );
 };

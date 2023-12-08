@@ -24,7 +24,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="z-20 flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl ">
+    <header className="sticky top-0 z-20 flex h-24 w-full items-center justify-between gap-4 rounded-xl px-10 py-4 shadow-xl backdrop-blur-xl backdrop-saturate-150 ">
       <h1 className="text-2xl font-bold text-text">
         <Link href={"/"}>PollPal</Link>
       </h1>
@@ -54,12 +54,20 @@ export const Header = () => {
           </div>
         </>
       ) : (
-        <button
-          className="rounded-xl bg-primary px-4 py-2 text-black"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
+        <>
+          <Link
+            className="font-medium tracking-wide text-gray-300 transition-colors duration-150 hover:text-text"
+            href={"/create-poll"}
+          >
+            Create poll
+          </Link>
+          <button
+            className="relative text-xl font-semibold before:absolute before:left-0 before:top-7 before:h-1 before:w-0 before:rounded-xl before:bg-primary before:transition-all before:duration-150 before:hover:w-full"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+        </>
       )}
     </header>
   );

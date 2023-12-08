@@ -47,7 +47,7 @@ const AddPoll = () => {
   };
 
   const handleDeleteOption = (id: string) => {
-    if (formFields.length < 1) return;
+    if (formFields.length < 2) return toast("You can't delete last option!");
     setFormFields(formFields.filter((form) => form.id !== id));
   };
 
@@ -93,19 +93,24 @@ const AddPoll = () => {
           {formFields.map((form, index) => {
             return (
               <div key={index} className=" flex h-full w-full flex-col gap-2">
-                <div className="flex justify-between">
-                  <label htmlFor="">Option {index + 1}</label>
+                <div className="relative flex justify-between font-medium">
+                  <label
+                    className="absolute left-2 top-4 text-primary"
+                    htmlFor=""
+                  >
+                    {index + 1}.
+                  </label>
                   <button
                     onClick={() => handleDeleteOption(form.id)}
                     type="button"
-                    className="mr-8"
+                    className="absolute right-10 top-5 flex w-12 justify-center bg-neutral-900"
                   >
                     <AiFillDelete />
                   </button>
                 </div>
                 <input
                   onChange={(event) => handleFormChange(event, index)}
-                  className="w-[95%] rounded-md border-0 bg-neutral-900 outline-primary md:outline-none"
+                  className="w-[95%] rounded-md border-0 bg-neutral-900 px-6 outline-primary md:outline-none"
                   type="text"
                   name={form.name}
                 />

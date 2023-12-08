@@ -10,8 +10,6 @@ export const GET = async (request: NextRequest) => {
   const pollId = searchParams.get("pollId");
   const optionId = searchParams.get("optionId");
 
-  console.log(pollId, optionId);
-
   const poll = await PollSchema.findOne({ id: pollId });
 
   if (!poll) {
@@ -31,8 +29,6 @@ export const GET = async (request: NextRequest) => {
   poll.markModified("options");
 
   await poll.save();
-
-  console.log("Saved changes:", poll);
 
   return NextResponse.json({ poll, msg: "Success" }, { status: 200 });
 };
