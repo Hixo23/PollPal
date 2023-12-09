@@ -12,7 +12,7 @@ export default function Home() {
             Create your poll <span className="text-primary">in seconds!</span>
           </h2>
           <Link
-            href={"/add-poll"}
+            href={"/create-poll"}
             className="flex w-fit items-center gap-3 rounded-lg bg-primary px-6 py-2 font-medium text-text transition-colors hover:bg-primary/80"
           >
             Create poll
