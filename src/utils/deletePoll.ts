@@ -1,14 +1,17 @@
 "use client";
 
 import { toast } from "sonner";
-import wretch from "wretch";
+import wretch, { WretchResponse } from "wretch";
 
-export const deletePoll = async (id: string): Promise<TPoll> => {
-  return await wretch(`/api/poll?id=${id}`)
+export const deletePoll = (id: string): Promise<void> => {
+  return wretch(`/api/poll?id=${id}`)
     .delete()
-    .notFound((err) => {
+    .notFound(() => {
       window.location.href = "/";
       return toast("This poll is not found!");
     })
-    .json();
+    .res((data: WretchResponse) => {
+      toast("Poll deleted");
+      data.json();
+    });
 };

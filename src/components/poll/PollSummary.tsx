@@ -47,7 +47,7 @@ export const PollSummary = ({
         </div>
       </ContextMenu.Trigger>
       <ContextMenu.Content>
-        <ContextMenu.Item onSelect={() => deletePoll(id)}>
+        <ContextMenu.Item onSelect={async () => await deletePoll(id)}>
           Delete
         </ContextMenu.Item>
       </ContextMenu.Content>

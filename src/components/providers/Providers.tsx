@@ -8,10 +8,12 @@ import "@radix-ui/themes/styles.css";
 
 const queryClient = new QueryClient();
 
+const TOAST_DURATION_IN_SECONDS = 5 * 1000;
+
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster duration={5 * 1000} theme="dark" />
+      <Toaster duration={TOAST_DURATION_IN_SECONDS} theme="dark" />
       <SessionProvider>{children}</SessionProvider>
     </QueryClientProvider>
   );
