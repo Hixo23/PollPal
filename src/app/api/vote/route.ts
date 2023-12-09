@@ -1,6 +1,5 @@
 import { connectToDataBase } from "@/database/connect";
 import { PollSchema } from "@/database/models/Poll";
-import { TPoll } from "@/types/types";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = async (request: NextRequest) => {

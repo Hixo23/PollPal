@@ -1,13 +1,10 @@
 "use client";
 
-import { TOptions } from "@/types/types";
-import { useState } from "react";
-import wretch from "wretch";
-import { useRouter } from "next/navigation";
+import { useVote } from "@/hooks/useVote";
 
 type TPropsType = {
   title: string;
-  options: TOptions[];
+  options: TOption[];
   id: string;
   voteButtonDisabled: boolean;
 };
@@ -18,32 +15,11 @@ export const PollVote = ({
   id,
   voteButtonDisabled,
 }: TPropsType) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-  const router = useRouter();
-
-  const getSelectedOptionId = () => {
-    if (selectedOption)
-      return options.find((option) => option.id == selectedOption);
-  };
-
-  const sumOfVotes: number = options.reduce(
-    (total, item) => total + item.votes,
-    0,
-  );
-
-  const handleVote = () => {
-    const selectedOption = getSelectedOptionId();
-
-    wretch(`/api/vote?pollId=${id}&optionId=${selectedOption?.id}`)
-      .get()
-      .json((_) => router.push(`/pollresults/${id}`));
-  };
-
-  const handleCheckboxChange = (selectedValue: string) => {
-    if (selectedValue === selectedOption) return setSelectedOption(null);
-    setSelectedOption(selectedValue);
-  };
+  const [handleCheckboxChange, sumOfVotes, selectedOption, handleVote] =
+    useVote({
+      options,
+      pollId: id,
+    });
 
   return (
     <div
@@ -78,7 +54,7 @@ export const PollVote = ({
       </div>
       {!voteButtonDisabled && (
         <button
-          onClick={handleVote}
+          onClick={() => handleVote()}
           className="mx-auto mb-4 w-5/6 rounded-xl bg-primary py-2 text-2xl font-bold text-text"
         >
           Vote

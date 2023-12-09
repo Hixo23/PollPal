@@ -1,5 +1,4 @@
 "use client";
-import { TPoll } from "@/types/types";
 import { toast } from "sonner";
 import wretch from "wretch";
 

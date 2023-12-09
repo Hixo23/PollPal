@@ -1,7 +1,6 @@
 "use client";
 import { Loading } from "@/components/loading/Loading";
 import { SignIn } from "@/components/pages/signin/SignIn";
-import { TPoll } from "@/types/types";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import wretch from "wretch";

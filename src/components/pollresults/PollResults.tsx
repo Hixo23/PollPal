@@ -2,21 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
-import { getPoll } from "@/lib/getPoll";
+import { getPoll } from "@/utils/getPoll";
 
 export const PollResults = ({ id }: { id: string }) => {
   const router = useRouter();
 
-  const {
-    data: poll,
-    isLoading,
-    isError,
-  } = useQuery(["poll", id], {
-    queryFn: () => getPoll(id as string),
+  const { data: poll, isLoading } = useQuery(["poll", id], {
+    queryFn: () => getPoll(id),
   });
 
   const sumOfVotes: number = poll
-    ? poll?.options.reduce((total, item) => total + item.votes, 0)
+    ? poll?.options.reduce(
+        (total: number, item: { votes: number }) => total + item.votes,
+        0,
+      )
     : 0;
 
   return (
@@ -28,7 +27,7 @@ export const PollResults = ({ id }: { id: string }) => {
         >
           <p className="text-3xl font-bold text-text">{poll?.title}</p>
           <div className="flex flex-col gap-7">
-            {poll?.options.map((option, index) => {
+            {poll?.options.map((option: TOption, index: number) => {
               return (
                 <div
                   key={index}

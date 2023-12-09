@@ -1,6 +1,5 @@
 "use client";
 
-import { TOptions, TPoll } from "@/types/types";
 import { ChangeEvent, FormEvent, useState } from "react";
 import wretch from "wretch";
 import { v4 as uuid } from "uuid";
@@ -10,7 +9,7 @@ import { toast } from "sonner";
 import { areOptionsValid } from "@/utils/areOptionsValid";
 
 const AddPoll = () => {
-  const [formFields, setFormFields] = useState<TOptions[]>([
+  const [formFields, setFormFields] = useState<TOption[]>([
     { name: "", votes: 0, id: uuid() },
   ]);
   const [formData, setFormData] = useState<TPoll>({
@@ -76,7 +75,7 @@ const AddPoll = () => {
     <main className="flex h-full min-h-[80vh] w-full min-w-[95vw] items-center justify-center bg-neutral-900">
       <form
         onSubmit={handleSubmit}
-        className="flex min-h-[32rem] w-1/3 flex-col justify-around rounded-xl bg-neutral-800 p-6 text-text"
+        className="flex min-h-[32rem] flex-col justify-around rounded-xl bg-neutral-800 p-6 text-text md:w-1/3"
       >
         <div className="flex w-[95%] flex-col justify-start gap-3">
           <label className="text-md font-medium text-text/70" htmlFor="title">
@@ -103,7 +102,7 @@ const AddPoll = () => {
                   <button
                     onClick={() => handleDeleteOption(form.id)}
                     type="button"
-                    className="absolute right-10 top-5 flex w-12 justify-center bg-neutral-900"
+                    className="absolute right-4 top-5 flex w-12 justify-center bg-neutral-900 md:right-10"
                   >
                     <AiFillDelete />
                   </button>

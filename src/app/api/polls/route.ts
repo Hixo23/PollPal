@@ -1,6 +1,6 @@
 import { connectToDataBase } from "@/database/connect";
 import { PollSchema } from "@/database/models/Poll";
-import { authOptions } from "@/lib/auth";
+import { authOptions } from "@/utils/auth";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
@@ -29,7 +29,6 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ msg: "No data" }, { status: 400 });
 
   const username = session?.user?.name ? session.user.name : uuid();
-
 
   const newPollObject = {
     title: data.title,

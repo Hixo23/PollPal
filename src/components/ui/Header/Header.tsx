@@ -1,14 +1,12 @@
 "use client";
 
 import { Tabs } from "@/components/tabs/Tabs";
-import { DropdownMenu } from "@radix-ui/themes";
-import { Session } from "next-auth";
-import { useSession, signOut, signIn } from "next-auth/react";
-import Image from "next/image";
+import { useSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Profile } from "../Profile/Profile";
 
 export const Header = () => {
   const { data: session, status } = useSession();
@@ -70,39 +68,5 @@ export const Header = () => {
         </>
       )}
     </header>
-  );
-};
-
-export const Profile = ({
-  session,
-  status,
-}: {
-  session: Session;
-  status: string;
-}) => {
-  const handleSignout = () => {
-    signOut();
-  };
-
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-lg bg-primary px-8 py-2">
-          <Image
-            className="h-12 w-12 rounded-full"
-            src={session.user?.image as string}
-            width={24}
-            height={24}
-            alt="Profile image"
-          />
-          <p className="text-xl font-bold text-text">{session.user?.name}</p>
-        </div>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content className="mt-4 w-40 text-center" size={"2"}>
-        <DropdownMenu.Item onClick={handleSignout} className="text-center">
-          Sign out
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
   );
 };

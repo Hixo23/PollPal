@@ -1,10 +1,9 @@
-import { TOptions } from "@/types/types";
-
-export const areOptionsValid = (formFields: TOptions[]) => {
+export const areOptionsValid = (formFields: TOption[]) => {
+  if (formFields.length <= 0) return;
   for (const option of formFields) {
     if (!option.name.trim()) {
-      return false; // Opcja nie ma nazwy
+      return false;
     }
   }
-  return true; // Wszystkie opcje są poprawne
+  return true;
 };

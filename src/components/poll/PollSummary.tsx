@@ -1,10 +1,9 @@
 "use client";
 
-import { TOptions } from "@/types/types";
 import { LuSubtitles, LuVote } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 import { ContextMenu } from "@radix-ui/themes";
-import { deletePoll } from "@/lib/deletePoll";
+import { deletePoll } from "@/utils/deletePoll";
 import Link from "next/link";
 
 export const PollSummary = ({
@@ -14,7 +13,7 @@ export const PollSummary = ({
 }: {
   id: string;
   title: string;
-  options: TOptions[];
+  options: TOption[];
 }) => {
   const router = useRouter();
 

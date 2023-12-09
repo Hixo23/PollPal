@@ -1,4 +1,3 @@
-import { TOptions } from "@/types/types";
 import mongoose, { Schema, Document, models, model } from "mongoose";
 
 interface PollOption {
@@ -13,7 +12,7 @@ interface Poll extends Document {
   id: string; // This should be a string, not a number
 }
 
-const pollOptionSchema = new Schema<TOptions>({
+const pollOptionSchema = new Schema<TOption>({
   id: { type: String, required: true },
   name: { type: String, required: true },
   votes: { type: Number, required: true },

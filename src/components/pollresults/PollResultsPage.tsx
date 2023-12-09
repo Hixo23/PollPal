@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
-import { getPoll } from "@/lib/getPoll";
+import { getPoll } from "@/utils/getPoll";
 import { Loading } from "@/components/loading/Loading";
 import { PollResults } from "@/components/pollresults/PollResults";
 
