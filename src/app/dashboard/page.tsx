@@ -1,6 +1,5 @@
 "use client";
 import { Loading } from "@/components/loading/Loading";
-import { SignIn } from "@/components/pages/signin/SignIn";
 import { useSession } from "next-auth/react";
 import { useQuery } from "react-query";
 import wretch from "wretch";
@@ -28,8 +27,6 @@ export default function Home() {
       refetchInterval: 2000,
     },
   );
-
-  if (isError) return <SignIn />;
 
   if (isLoading) return <Loading />;
 
