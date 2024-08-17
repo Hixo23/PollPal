@@ -85,31 +85,30 @@ export const CreatePollForm = () => {
           name="title"
         />
       </div>
-      <div className=" mt-12 flex h-full flex-col items-start gap-4">
+      <div className="mt-6 flex h-full flex-col items-start gap-4">
         {formFields.map((form, index) => {
           return (
             <div key={index} className=" flex h-full w-full flex-col gap-2">
               <div className="relative flex justify-between font-medium">
-                <label
-                  className="absolute left-2 top-4 text-primary"
-                  htmlFor=""
-                >
-                  {index + 1}.
+                <label className="text-text/70" htmlFor="">
+                  Option {index + 1}
                 </label>
+              </div>
+              <div className="relative flex items-center">
+                <input
+                  onChange={(event) => handleFormChange(event, index)}
+                  className="w-[95%] rounded-md border-0 bg-neutral-900 px-6 outline-primary md:outline-none"
+                  type="text"
+                  name={form.name}
+                />
                 <button
                   onClick={() => handleDeleteOption(form.id)}
                   type="button"
-                  className="absolute right-4 top-5 flex w-12 justify-center bg-neutral-900 md:right-10"
+                  className="absolute bg-neutral-900 md:right-10"
                 >
                   <AiFillDelete />
                 </button>
               </div>
-              <input
-                onChange={(event) => handleFormChange(event, index)}
-                className="w-[95%] rounded-md border-0 bg-neutral-900 px-6 outline-primary md:outline-none"
-                type="text"
-                name={form.name}
-              />
             </div>
           );
         })}
