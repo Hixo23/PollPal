@@ -5,6 +5,15 @@ export const addPoll = async (
 ): Promise<{ id: string; msg: string }> => {
   return wretch("/api/polls").post(formData).json();
 };
+
+export const getPolls = async (): Promise<TPoll[] | { msg: "string" }> => {
+  return await wretch("api/polls")
+    .get()
+    .unauthorized(() => {
+      msg: "Unauthorized";
+    })
+    .json();
+};
 export const getPoll = async (id: string): Promise<TPoll> => {
   return await wretch(`/api/poll?id=${id}`)
     .get()
