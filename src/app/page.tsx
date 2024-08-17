@@ -34,16 +34,7 @@ export default function Home() {
           </Link>
         </div>
         <div className="hidden md:flex">
-          <PollVote
-            title="Example poll"
-            options={[
-              { name: "Example", id: "1", votes: 0 },
-              { name: "Example", id: "2", votes: 0 },
-              { name: "Example", id: "3", votes: 0 },
-            ]}
-            id="sdad"
-            voteButtonDisabled={true}
-          />
+          <PollVote id="123" isMock voteButtonDisabled={true} />
         </div>
       </section>
     </main>
