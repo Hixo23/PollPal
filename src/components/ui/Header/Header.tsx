@@ -60,7 +60,7 @@ export const Header = () => {
             Create poll
           </Link>
           <button
-            className="relative text-xl font-semibold before:absolute before:left-0 before:top-7 before:h-1 before:w-0 before:rounded-xl before:bg-primary before:transition-all before:duration-150 before:hover:w-full"
+            className="relative rounded-xl bg-primary/40 px-4 py-2 text-lg font-semibold transition-all duration-150 hover:bg-primary/60"
             onClick={handleLogin}
           >
             Login
