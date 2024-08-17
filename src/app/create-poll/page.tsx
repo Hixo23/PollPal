@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "sonner";
 import { areOptionsValid } from "@/utils/areOptionsValid";
+import { addPoll } from "@/services/poll/poll";
 
 const AddPoll = () => {
   const [formFields, setFormFields] = useState<TOption[]>([
@@ -50,7 +51,7 @@ const AddPoll = () => {
     setFormFields(formFields.filter((form) => form.id !== id));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!formData.title) {
@@ -65,9 +66,8 @@ const AddPoll = () => {
       return toast("You should add minimum 2 options");
 
     if (formData.title && formData.options) {
-      wretch("/api/polls")
-        .post(formData)
-        .json((s) => router.push(`/poll/${s.id}`));
+      const response = await addPoll(formData);
+      router.push(`/poll/${response.id}`);
     }
   };
 

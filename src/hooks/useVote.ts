@@ -5,10 +5,10 @@ import { useState } from "react";
 import wretch from "wretch";
 
 type UseVoteReturnType = [
-  (selectedValue: string) => void, // handleCheckboxChange
-  number, // sumOfVotes
-  string | null, // selectedOption
-  () => void, // handleVote
+  (selectedValue: string) => void,
+  number,
+  string | null,
+  () => void,
 ];
 
 export const useVote = ({

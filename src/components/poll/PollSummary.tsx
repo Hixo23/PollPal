@@ -1,9 +1,8 @@
 "use client";
 
 import { LuSubtitles, LuVote } from "react-icons/lu";
-import { useRouter } from "next/navigation";
 import { ContextMenu } from "@radix-ui/themes";
-import { deletePoll } from "@/utils/deletePoll";
+import { deletePoll } from "@/services/poll/poll";
 import Link from "next/link";
 
 export const PollSummary = ({
@@ -15,8 +14,6 @@ export const PollSummary = ({
   title: string;
   options: TOption[];
 }) => {
-  const router = useRouter();
-
   const sumOfVotes: number = options.reduce(
     (total, item) => total + item.votes,
     0,

@@ -3,7 +3,7 @@
 import { PollVote } from "@/components/poll/Poll";
 import { useParams, useRouter } from "next/navigation";
 import { useQuery } from "react-query";
-import { getPoll } from "@/utils/getPoll";
+import { getPoll } from "@/services/poll/poll";
 import { Loading } from "@/components/loading/Loading";
 
 const PollPage = () => {
