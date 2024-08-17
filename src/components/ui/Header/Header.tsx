@@ -41,7 +41,7 @@ export const Header = () => {
             } bg-neutral-900 md:relative md:h-auto md:w-full md:flex-row md:justify-between md:gap-0 md:bg-transparent`}
           >
             <Tabs />
-            <Profile session={session} status={status} />
+            <Profile session={session} />
 
             <button
               onClick={toggleNavbar}

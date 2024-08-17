@@ -3,13 +3,7 @@ import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
-export const Profile = ({
-  session,
-  status,
-}: {
-  session: Session;
-  status: string;
-}) => {
+export const Profile = ({ session }: { session: Session }) => {
   const handleSignout = () => {
     signOut();
   };
@@ -17,7 +11,7 @@ export const Profile = ({
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <div className="relative flex cursor-pointer items-center justify-center gap-4 rounded-lg bg-primary px-8 py-2">
+        <div className="relative flex h-full cursor-pointer  items-center justify-center gap-4 rounded-lg px-4 py-1">
           <Image
             className="h-12 w-12 rounded-full"
             src={session.user?.image as string}
