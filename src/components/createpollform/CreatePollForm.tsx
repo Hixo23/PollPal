@@ -7,11 +7,13 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { addPoll } from "@/services/poll/poll";
+import { v4 } from "uuid";
 
 export const optionSchema = z
   .object({
     name: z.string().min(3),
     votes: z.number(),
+    id: z.string(),
   })
   .array();
 
@@ -25,7 +27,7 @@ export const CreatePollForm = () => {
     resolver: zodResolver(pollSchema),
     defaultValues: {
       title: "",
-      options: [{ name: "", votes: 0 }],
+      options: [{ name: "", votes: 0, id: v4() }],
     },
   });
 
@@ -38,7 +40,7 @@ export const CreatePollForm = () => {
 
   const handleAddNewOption = () => {
     if (fieldArray.fields.length > 4) return;
-    fieldArray.append({ name: "", votes: 0 });
+    fieldArray.append({ name: "", votes: 0, id: v4() });
   };
 
   const handleDeleteOption = (index: number) => {

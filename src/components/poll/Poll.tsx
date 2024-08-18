@@ -2,6 +2,10 @@
 
 import { useGetPoll } from "@/hooks/useGetPoll";
 import { useVote } from "@/hooks/useVote";
+import { z } from "zod";
+import { pollSchema } from "../createpollform/CreatePollForm";
+import { Loading } from "../loading/Loading";
+import { useMemo } from "react";
 
 type TPropsType = {
   id: string;
@@ -9,24 +13,27 @@ type TPropsType = {
   isMock: boolean;
 };
 
-const MOCK: TPoll = {
+const MOCK: z.infer<typeof pollSchema> = {
   title: "Example",
-  userName: "Elorzelo",
   id: "",
   options: [
-    { id: "1", name: "Example", votes: 2 },
-    { id: "2", name: "Example", votes: 2 },
+    { name: "Example", votes: 2, id: "!" },
+    { name: "Example", votes: 2, id: "2" },
   ],
 };
 
 export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
-  const { data } = useGetPoll(id);
-  const poll: TPoll = isMock ? MOCK : data!;
+  const { data, isLoading } = useGetPoll(id);
+  const poll = useMemo(() => {
+    return isMock ? MOCK : data;
+  }, [isMock, data]);
   const [handleCheckboxChange, sumOfVotes, selectedOption, handleVote] =
     useVote({
-      options: poll.options,
+      options: poll?.options || [],
       pollId: id,
     });
+
+  if (isLoading || !poll) return <Loading />;
 
   return (
     <div

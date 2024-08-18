@@ -1,8 +1,10 @@
 "use client";
 
+import { optionSchema } from "@/components/createpollform/CreatePollForm";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import wretch from "wretch";
+import { z } from "zod";
 
 type UseVoteReturnType = [
   (selectedValue: string) => void,
@@ -15,10 +17,11 @@ export const useVote = ({
   options,
   pollId,
 }: {
-  options: TOption[];
+  options: z.infer<typeof optionSchema>;
   pollId: string;
 }): UseVoteReturnType => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  if (!options) window.location.href = "/";
 
   const router = useRouter();
 
