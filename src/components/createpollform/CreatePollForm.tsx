@@ -18,6 +18,7 @@ export const optionSchema = z
 export const pollSchema = z.object({
   title: z.string().min(4),
   options: optionSchema,
+  id: z.string().optional(),
 });
 export const CreatePollForm = () => {
   const form = useForm({

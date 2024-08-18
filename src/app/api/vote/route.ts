@@ -1,6 +1,8 @@
+import { pollSchema } from "@/components/createpollform/CreatePollForm";
 import { connectToDataBase } from "@/database/connect";
 import { PollSchema } from "@/database/models/Poll";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export const GET = async (request: NextRequest) => {
   await connectToDataBase();
@@ -16,7 +18,7 @@ export const GET = async (request: NextRequest) => {
   }
 
   const optionIndex = poll.options.findIndex(
-    (opt: TPoll) => opt.id.toString() === optionId,
+    (opt: z.infer<typeof pollSchema>) => opt.id!.toString() === optionId,
   );
 
   if (optionIndex === -1) {
