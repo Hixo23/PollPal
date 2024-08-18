@@ -83,6 +83,7 @@ export const CreatePollForm = () => {
         {fieldArray.fields.map((field, index) => {
           return (
             <Controller
+              key={index}
               name={`options.${index}.name`}
               control={form.control}
               render={({ field }) => (
