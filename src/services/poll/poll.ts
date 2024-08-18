@@ -12,9 +12,8 @@ export const addPoll = async (
     })
     .json();
 };
-
 export const getPolls = async (): Promise<
-  z.infer<typeof pollSchema> | { msg: "string" }
+  z.infer<typeof pollSchema>[] | { msg: "string" }
 > => {
   return await wretch("api/polls")
     .get()

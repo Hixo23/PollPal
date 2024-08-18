@@ -6,6 +6,26 @@ import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
 
+export const GET = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user)
+    return NextResponse.json({ msg: "User not found" }, { status: 401 });
+
+  const polls = await db.poll.findMany({
+    where: {
+      User: {
+        email: session.user.email,
+      },
+    },
+    include: {
+      options: true,
+    },
+  });
+
+  return NextResponse.json(polls);
+};
+
 export const POST = async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
 
@@ -23,27 +43,21 @@ export const POST = async (request: NextRequest) => {
 
   const pollId = uuid();
 
-  // Extract the ids and names from the options array
   const options = data.options;
   const optionIds = options.map((option) => option.id);
-  const optionNames = options.map((option) => option.name);
 
-  // Fetch existing options to check which ones exist
   const existingOptions = await db.pollOption.findMany({
     where: {
-      id: { in: optionIds }, // Find records with the given IDs
+      id: { in: optionIds },
     },
   });
 
-  // Extract existing option IDs
   const existingOptionIds = existingOptions.map((option) => option.id);
 
-  // Determine which options need to be created
   const optionsToCreate = options.filter(
     (option) => !existingOptionIds.includes(option.id),
   );
 
-  // Create missing options
   await db.pollOption.createMany({
     data: optionsToCreate.map((option) => ({
       id: option.id,
@@ -59,13 +73,12 @@ export const POST = async (request: NextRequest) => {
     },
   });
 
-  // Create the new poll with the connected options
   await db.poll.create({
     data: {
       id: pollId,
       title: data.title,
       options: {
-        connect: allOptions.map((option) => ({ id: option.id })), // Connect all valid options
+        connect: allOptions.map((option) => ({ id: option.id })),
       },
       User: {
         connectOrCreate: {

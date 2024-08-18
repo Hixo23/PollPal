@@ -6,9 +6,6 @@ import { z } from "zod";
 export const useGetPolls = () =>
   useQuery(
     "polls",
-    async (): Promise<z.infer<typeof pollSchema> | { msg: string }> =>
+    async (): Promise<z.infer<typeof pollSchema>[] | { msg: string }> =>
       getPolls(),
-    {
-      refetchInterval: 2000,
-    },
   );

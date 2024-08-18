@@ -4,6 +4,8 @@ import { LuSubtitles, LuVote } from "react-icons/lu";
 import { ContextMenu } from "@radix-ui/themes";
 import { deletePoll } from "@/services/poll/poll";
 import Link from "next/link";
+import { z } from "zod";
+import { optionSchema } from "../createpollform/CreatePollForm";
 
 export const PollSummary = ({
   id,
@@ -12,7 +14,7 @@ export const PollSummary = ({
 }: {
   id: string;
   title: string;
-  options: TOption[];
+  options: z.infer<typeof optionSchema>;
 }) => {
   const sumOfVotes: number = options.reduce(
     (total, item) => total + item.votes,

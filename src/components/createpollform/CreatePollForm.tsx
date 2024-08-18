@@ -20,13 +20,14 @@ export const optionSchema = z
 export const pollSchema = z.object({
   title: z.string().min(4),
   options: optionSchema,
-  id: z.string().optional(),
+  id: z.string(),
 });
 export const CreatePollForm = () => {
   const form = useForm({
     resolver: zodResolver(pollSchema),
     defaultValues: {
       title: "",
+      id: v4(),
       options: [{ name: "", votes: 0, id: v4() }],
     },
   });
