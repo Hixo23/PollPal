@@ -23,7 +23,7 @@ const MOCK: z.infer<typeof pollSchema> = {
 };
 
 export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
-  const { data, isLoading } = useGetPoll(id);
+  const { data } = useGetPoll(id);
   const poll = useMemo(() => {
     return isMock ? MOCK : data;
   }, [isMock, data]);
@@ -33,7 +33,7 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
       pollId: id,
     });
 
-  if (isLoading || !poll) return <Loading />;
+  if (!poll && !isMock) return <Loading />;
 
   return (
     <div
