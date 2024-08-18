@@ -1,115 +1,107 @@
 "use client";
 
-import { addPoll } from "@/services/poll/poll";
-import { areOptionsValid } from "@/utils/areOptionsValid";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { toast } from "sonner";
-import { v4 as uuid } from "uuid";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { addPoll } from "@/services/poll/poll";
 
+export const optionSchema = z
+  .object({
+    name: z.string().min(3),
+    votes: z.number(),
+  })
+  .array();
+
+export const pollSchema = z.object({
+  title: z.string().min(4),
+  options: optionSchema,
+});
 export const CreatePollForm = () => {
-  const [formFields, setFormFields] = useState<TOption[]>([
-    { name: "", votes: 0, id: uuid() },
-  ]);
-  const [formData, setFormData] = useState<TPoll>({
-    title: "",
-    options: formFields,
-    id: "",
-    userName: "",
+  const form = useForm({
+    resolver: zodResolver(pollSchema),
+    defaultValues: {
+      title: "",
+      options: [{ name: "", votes: 0 }],
+    },
+  });
+
+  const fieldArray = useFieldArray({
+    control: form.control,
+    name: "options",
   });
 
   const router = useRouter();
 
-  const handleFormChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    let data = [...formFields];
-
-    data[index] = {
-      ...data[index],
-      name: event.target.value,
-    };
-
-    setFormFields(data);
-    setFormData({ ...formData, options: formFields });
-  };
-
-  const handleChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, title: event.target.value });
-  };
-
   const handleAddNewOption = () => {
-    if (formFields.length > 4) return;
-    setFormFields([...formFields, { name: "", votes: 0, id: uuid() }]);
+    if (fieldArray.fields.length > 4) return;
+    fieldArray.append({ name: "", votes: 0 });
   };
 
-  const handleDeleteOption = (id: string) => {
-    if (formFields.length < 2) return toast("You can't delete last option!");
-    setFormFields(formFields.filter((form) => form.id !== id));
+  const handleDeleteOption = (index: number) => {
+    if (fieldArray.fields.length < 2)
+      return toast("You can't delete last option!");
+    fieldArray.remove(index);
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.title) {
-      return toast("Write a title");
-    }
-
-    if (!areOptionsValid(formFields)) {
-      return toast("All options must have names");
-    }
-
-    if (formData.options.length < 2)
-      return toast("You should add minimum 2 options");
-
-    if (formData.title && formData.options) {
-      const response = await addPoll(formData);
-      router.push(`/poll/${response.id}`);
-    }
+  const onSubmit = async (values: z.infer<typeof pollSchema>) => {
+    const response = await addPoll(values);
+    router.push(`/poll/${response.id}`);
   };
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={form.handleSubmit(onSubmit)}
       className="flex min-h-[32rem] flex-col justify-around rounded-xl bg-neutral-800 p-6 text-text md:w-1/3"
     >
-      <div className="flex w-[95%] flex-col justify-start gap-3">
-        <label className="text-md font-medium text-text/70" htmlFor="title">
-          Title of poll
-        </label>
-        <input
-          onChange={handleChangeTitle}
-          className="rounded-md border-0 bg-neutral-900 outline-primary md:outline-none"
-          type="text"
-          name="title"
-        />
-      </div>
+      <Controller
+        name="title"
+        control={form.control}
+        render={({ field }) => (
+          <div className="flex  flex-col justify-start gap-3">
+            <label className="text-md font-medium text-text/70" htmlFor="title">
+              Title of poll
+            </label>
+            <input
+              {...field}
+              className="rounded-md border-0 bg-neutral-900 outline-primary md:outline-none"
+              type="text"
+              name="title"
+            />
+            {form.formState.errors.title?.message && (
+              <p>{form.formState.errors.title?.message}</p>
+            )}
+          </div>
+        )}
+      />
       <div className="mt-6 flex h-full flex-col items-start gap-4">
-        {formFields.map((form, index) => {
+        <p className=" text-text/70">Options</p>
+        {fieldArray.fields.map((field, index) => {
           return (
-            <div key={index} className=" flex h-full w-full flex-col gap-2">
-              <div className="relative flex justify-between font-medium">
-                <label className="text-text/70" htmlFor="">
-                  Option {index + 1}
-                </label>
-              </div>
-              <div className="relative flex items-center">
-                <input
-                  onChange={(event) => handleFormChange(event, index)}
-                  className="w-[95%] rounded-md border-0 bg-neutral-900 px-6 outline-primary md:outline-none"
-                  type="text"
-                  name={form.name}
-                />
-                <button
-                  onClick={() => handleDeleteOption(form.id)}
-                  type="button"
-                  className="absolute bg-neutral-900 md:right-10"
-                >
-                  <AiFillDelete />
-                </button>
-              </div>
-            </div>
+            <Controller
+              name={`options.${index}.name`}
+              control={form.control}
+              render={({ field }) => (
+                <div className="relative flex w-full items-center justify-between">
+                  <input
+                    aria-label={`Option ${index + 1}`}
+                    {...field}
+                    value={field.value}
+                    className="w-full rounded-md border-0 bg-neutral-900 px-6 outline-primary md:outline-none"
+                    type="text"
+                    name={`options.${index}.name`}
+                  />
+                  <button
+                    onClick={() => handleDeleteOption(index)}
+                    type="button"
+                    className="absolute right-0 bg-neutral-900 pr-4"
+                  >
+                    <AiFillDelete />
+                  </button>
+                </div>
+              )}
+            />
           );
         })}
       </div>
