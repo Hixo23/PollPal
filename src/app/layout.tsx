@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import "@radix-ui/themes/styles.css";
 import { Header } from "@/components/ui/Header/Header";
 import { Providers } from "@/components/providers/Providers";
 import { Theme } from "@radix-ui/themes";

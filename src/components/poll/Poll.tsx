@@ -1,25 +1,39 @@
 "use client";
 
+import { useGetPoll } from "@/hooks/useGetPoll";
 import { useVote } from "@/hooks/useVote";
+import { z } from "zod";
+import { pollSchema } from "../createpollform/CreatePollForm";
+import { Loading } from "../loading/Loading";
+import { useMemo } from "react";
 
 type TPropsType = {
-  title: string;
-  options: TOption[];
   id: string;
   voteButtonDisabled: boolean;
+  isMock: boolean;
 };
 
-export const PollVote = ({
-  title,
-  options,
-  id,
-  voteButtonDisabled,
-}: TPropsType) => {
+const MOCK: z.infer<typeof pollSchema> = {
+  title: "Example",
+  id: "",
+  options: [
+    { name: "Example", votes: 2, id: "!" },
+    { name: "Example", votes: 2, id: "2" },
+  ],
+};
+
+export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
+  const { data } = useGetPoll(id);
+  const poll = useMemo(() => {
+    return isMock ? MOCK : data;
+  }, [isMock, data]);
   const [handleCheckboxChange, sumOfVotes, selectedOption, handleVote] =
     useVote({
-      options,
+      options: poll?.options || [],
       pollId: id,
     });
+
+  if (!poll && !isMock) return <Loading />;
 
   return (
     <div
@@ -27,10 +41,10 @@ export const PollVote = ({
         !voteButtonDisabled && "justify-between"
       } gap-8 rounded-lg border-t-4 border-t-primary bg-neutral-800 p-4 md:w-[36rem]`}
     >
-      <p className="text-3xl font-bold text-text">{title}</p>
+      <p className="text-3xl font-bold text-text">{poll.title}</p>
       <div className="flex flex-col gap-7">
         <p className="text-lg font-medium text-text">Make a choice</p>
-        {options.map((option, index) => {
+        {poll.options.map((option, index) => {
           return (
             <div key={index} className="flex items-center gap-2">
               <input

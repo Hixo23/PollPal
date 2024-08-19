@@ -41,7 +41,7 @@ export const Header = () => {
             } bg-neutral-900 md:relative md:h-auto md:w-full md:flex-row md:justify-between md:gap-0 md:bg-transparent`}
           >
             <Tabs />
-            <Profile session={session} status={status} />
+            <Profile session={session} />
 
             <button
               onClick={toggleNavbar}
@@ -60,7 +60,7 @@ export const Header = () => {
             Create poll
           </Link>
           <button
-            className="relative text-xl font-semibold before:absolute before:left-0 before:top-7 before:h-1 before:w-0 before:rounded-xl before:bg-primary before:transition-all before:duration-150 before:hover:w-full"
+            className="relative rounded-xl bg-primary/40 px-4 py-2 text-lg font-semibold transition-all duration-150 hover:bg-primary/60"
             onClick={handleLogin}
           >
             Login

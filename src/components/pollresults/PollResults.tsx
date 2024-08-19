@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useQuery } from "react-query";
-import { getPoll } from "@/utils/getPoll";
+import { getPoll } from "@/services/poll/poll";
 
 export const PollResults = ({ id }: { id: string }) => {
   const router = useRouter();

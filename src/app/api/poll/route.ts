@@ -1,13 +1,28 @@
-import { connectToDataBase } from "@/database/connect";
+import { db } from "@/database/db";
 import { NextRequest, NextResponse } from "next/server";
-import { PollSchema } from "@/database/models/Poll";
 
 export const GET = async (request: NextRequest) => {
-  await connectToDataBase();
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
 
-  const poll = await PollSchema.findOne({ id });
+  if (!id)
+    return NextResponse.json(
+      {
+        msg: "Missing id",
+      },
+      {
+        status: 400,
+      },
+    );
+
+  const poll = await db.poll.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      options: true,
+    },
+  });
 
   if (!poll)
     return NextResponse.json(
@@ -19,12 +34,24 @@ export const GET = async (request: NextRequest) => {
 };
 
 export const DELETE = async (request: NextRequest) => {
-  await connectToDataBase();
-
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
 
-  const poll = await PollSchema.findOneAndDelete({ id: id });
+  if (!id)
+    return NextResponse.json(
+      {
+        msg: "Missing id",
+      },
+      {
+        status: 400,
+      },
+    );
+
+  const poll = await db.poll.delete({
+    where: {
+      id,
+    },
+  });
 
   if (!poll)
     return NextResponse.json(
