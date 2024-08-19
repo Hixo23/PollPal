@@ -35,7 +35,12 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
     });
   const router = useRouter();
 
-  if (!poll || (!poll && !isMock)) return router.push("/");
+  if (!poll || (!poll && !isMock))
+    return (
+      <div className="my-24 flex w-full justify-center">
+        <p className="text-4xl text-text">Poll not found</p>
+      </div>
+    );
 
   return -(
     <div
