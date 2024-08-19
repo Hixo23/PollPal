@@ -33,7 +33,6 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
       options: poll?.options || [],
       pollId: id,
     });
-  const router = useRouter();
 
   if (!poll || (!poll && !isMock))
     return (
@@ -42,7 +41,7 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
       </div>
     );
 
-  return -(
+  return (
     <div
       className={`flex min-h-fit w-1/2 min-w-[400px] flex-col  ${
         !voteButtonDisabled && "justify-between"
