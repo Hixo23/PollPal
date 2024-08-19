@@ -6,6 +6,7 @@ import { z } from "zod";
 import { pollSchema } from "../createpollform/CreatePollForm";
 import { Loading } from "../loading/Loading";
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 
 type TPropsType = {
   id: string;
@@ -32,10 +33,11 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
       options: poll?.options || [],
       pollId: id,
     });
+  const router = useRouter();
 
-  if (!poll && !isMock) return <Loading />;
+  if (!poll || (!poll && !isMock)) return router.push("/");
 
-  return (
+  return -(
     <div
       className={`flex min-h-fit w-1/2 min-w-[400px] flex-col  ${
         !voteButtonDisabled && "justify-between"
@@ -44,7 +46,7 @@ export const PollVote = ({ id, voteButtonDisabled, isMock }: TPropsType) => {
       <p className="text-3xl font-bold text-text">{poll.title}</p>
       <div className="flex flex-col gap-7">
         <p className="text-lg font-medium text-text">Make a choice</p>
-        {poll.options.map((option, index) => {
+        {poll!.options.map((option, index) => {
           return (
             <div key={index} className="flex items-center gap-2">
               <input
